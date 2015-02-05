@@ -28,7 +28,7 @@ $(HOME)/.zsh.d/sential:
 	ln -sf .dotfiles/zsh/_zsh.d $(HOME)/.zsh.d
 	touch $@
 $(HOME)/.zsh%:
-	ln -f ./zsh/$(subst .,_,$(@F)) $(HOME)/
+	ln -f ./zsh/$(subst .,_,$(@F)) $@
 
 #
 # VIM系の設定
