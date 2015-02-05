@@ -1,0 +1,7 @@
+#
+# zshenv
+#
+LANG=ja_JP.UTF-8
+source ~/.zsh.d/zshenv
+
+# vim: set ft=zsh :

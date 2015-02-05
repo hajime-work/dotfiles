@@ -1,0 +1,28 @@
+#
+#  Zsh環境ファイル
+#
+
+umask 002 # グループには常に権限を耐える
+
+# パスの設定
+source ~/.zsh.d/config/path.zsh
+
+# ヒストリの設定
+source ~/.zsh.d/config/history.zsh
+
+# アプリケーションの設定
+source ~/.zsh.d/config/app.zsh
+
+# エイリアスの設定
+source ~/.zsh.d/config/alias.zsh
+
+# プロンプトの設定
+source ~/.zsh.d/config/prompt.zsh
+
+# 補完の設定
+source ~/.zsh.d/config/completion.zsh
+
+[ "$TERM" = "xterm" ] && export TERM="xterm-256color"
+
+
+# vim: ft=sh :

@@ -1,0 +1,13 @@
+# 
+# .zshrc
+# 
+# @SeeAlso _zshenv
+#
+
+
+# ローカルファイルの読み込み
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+
+
+# vim: set ft=zsh :
