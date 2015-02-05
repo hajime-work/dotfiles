@@ -15,7 +15,7 @@ git:
 $(HOME)/.gitconfig:
 	ln -f ./git/_gitconfig $(HOME)/.gitconfig
 $(HOME)/.gitconfig.local:
-	ln -f ./git/_gitconfig.local $(HOME)/.gitconfig.local
+	cp -v ./git/_gitconfig.local $(HOME)/.gitconfig.local
 
 #
 # ZSH系の設定
