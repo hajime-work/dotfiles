@@ -36,6 +36,7 @@ $(HOME)/.zsh%:
 vim:
 	make $(HOME)/.vim.d/sential
 	make $(HOME)/.vimrc
+	make $(HOME)/.vimrc.local
 	make $(HOME)/.vim.tmp/sential
 
 $(HOME)/.vim.tmp/sential:
@@ -47,6 +48,9 @@ $(HOME)/.vim.d/sential:
 	touch $@
 $(HOME)/.vimrc:
 	ln -f ./vim/_vimrc $(HOME)/.vimrc
+$(HOME)/.vimrc.local:
+	touch $@
+	
 #
 # TMUX系の設定
 #
