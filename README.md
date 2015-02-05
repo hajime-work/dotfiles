@@ -6,5 +6,7 @@
 ```sh
 git clone <REPO> .dotfiles
 cd .dotfiles
-make 
+make zsh
+make git
+make vim
 ```
