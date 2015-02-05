@@ -1,4 +1,4 @@
-.PHONY: git zsh vim tmux
+.PHONY: git zsh vim tmux conky
 
 prepare:
 	make git
@@ -60,3 +60,8 @@ $(HOME)/.tmux.d/sential:
 
 $(HOME)/.tmux.conf:
 	ln -f ./tmux/_tmux.conf $(HOME)/.tmux.conf
+#
+# Conky
+#
+conky:
+	ln -f ./_conkyrc $(HOME)/.conkyrc
