@@ -1,0 +1,52 @@
+# ---------------------------------
+# キーバインドをVI
+setw -g mode-keys vi
+
+# ---------------------------------
+# 文字コードをUTF8へ
+set-option -g status-utf8 on
+set-window-option -g utf8 on
+
+# ---------------------------------
+# 端末を256色対応
+set-option -g default-terminal screen-256color
+
+# ---------------------------------
+# コピーモードをVIっぽくする
+unbind [
+bind y copy-mode
+unbind p
+bind p paste-buffer
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-selection
+
+# ---------------------------------
+# 分割をVIっぽくする
+bind s split-window -v
+bind v split-window -h
+
+# ---------------------------------
+# パネルの移動をVIにする
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# ---------------------------------
+# パネルのリサイズをVIにする
+bind -r C-h resize-pane -L
+bind -r C-j resize-pane -D
+bind -r C-k resize-pane -U
+bind -r C-l resize-pane -R
+
+# ---------------------------------
+# ' でセッションを切り替え
+bind-key "'" choose-session
+
+
+# ---------------------------------
+# [ESC]キーのウエイトタイム
+set -s escape-time 0
+
+
+# vim: set ft=tmux :
