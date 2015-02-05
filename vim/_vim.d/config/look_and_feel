@@ -1,0 +1,27 @@
+"
+" 見た目の設定
+"
+" 見た目のプレビュー付で見たいとき
+"
+" :Unite -auto-preview colorscheme
+"
+
+"colorscheme murphy
+colorscheme jellybeans
+
+" 値は:highliteで調査
+" Terminalの透過と合わせるために、背景色を殺す
+hi   Normal       ctermbg=none
+hi   Comment      ctermbg=none
+hi   LineNr       ctermbg=none
+hi   SpecialKey   ctermbg=none
+hi   NonText      ctermbg=none
+hi   Visual       ctermbg=lightgray   ctermfg=black
+"hi   Normal       ctermbg=none        ctermfg=lightgray
+"hi   Comment      ctermbg=none        ctermfg=lightgray
+"hi   LineNr       ctermbg=none        ctermfg=lightgray
+"hi   SpecialKey   ctermbg=none        ctermfg=darkgray
+"hi   NonText      ctermbg=none        ctermfg=darkgray
+"hi   Visual       ctermbg=lightgray   ctermfg=black
+
+" vim: set ft=vim ts=4 sw=4 sts=4 :

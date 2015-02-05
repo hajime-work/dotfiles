@@ -1,0 +1,32 @@
+" vim: set ft=vim ts=4 sw=4 sts=4 :
+"
+" VIM設定ファイル
+"
+" @Author Hajime <mail@hazime.org>
+" @Update 2014.10.10
+" @See http://motw.mods.jp/Vim/command.html
+
+"
+" 基本的な設定
+"
+source ~/.vim.d/config/basic
+
+"
+" キーバインドの設定
+"
+source ~/.vim.d/config/keybind
+
+"
+" ネオバンドルプラグインの設定
+"
+source ~/.vim.d/config/neobundle
+
+"
+" 見た目の設定
+"
+source ~/.vim.d/config/look_and_feel
+
+"
+" ローカルを読み込む
+"
+source ~/.vimrc.local

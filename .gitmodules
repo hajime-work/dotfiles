@@ -1,3 +1,6 @@
 [submodule "zsh/_zsh.d/third/dircolors-solarized"]
 	path = zsh/_zsh.d/third/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized
+[submodule "vim/third/neobundle.vim"]
+	path = vim/third/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim
