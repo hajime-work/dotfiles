@@ -30,10 +30,12 @@ local KAO1="@='-']"
 local KAO2="@=^-^]" \
 local MARK='%B%(!,%F{'$mark_color_2'}#%f,%F{'$mark_color_1'}>%f)%f%b '
 local KAO='%(?!%F{'$kao_color_1'}'${KAO1}'!%F{'$kao_color_2'}'${KAO2}')%f'
-local prompt_fqdn="%B%F{$host_color}`hostname -f`%f%b%F{$normal_color}"
+#local prompt_fqdn="%B%F{$host_color}`hostname -f`%f%b%F{$normal_color}"
+local prompt_fqdn="%F{$host_color}`hostname -f`%f%F{$normal_color}"
 local prompt_directory="%F{$directory_color}%d%f%F{$normal_color}"
 local prompt_name="%F{$name_color}%n%f%F{$normal_color}"
-PROMPT="%F{$normal_color}<<$prompt_name at %F{$host_color}%m%f%F{$normal_color}>>%f%F{$normal_color} - [$prompt_directory] - [$prompt_fqdn] - 
+#PROMPT="%F{$normal_color}<<$prompt_name at %F{$host_color}%m%f%F{$normal_color}>>%f%F{$normal_color} - [$prompt_directory] 
+PROMPT="$prompt_name@$prompt_fqdn - $prompt_directory
 $KAO $MARK"
 PROMPT2="$KAO %F{gray}---<%f "
 
