@@ -22,6 +22,9 @@ source ~/.zsh.d/config/prompt.zsh
 # 補完の設定
 source ~/.zsh.d/config/completion.zsh
 
+# Utilの読み込み
+source ~/.zsh.d/config/util.zsh
+
 [ "$TERM" = "xterm" ] && export TERM="xterm-256color"
 
 
