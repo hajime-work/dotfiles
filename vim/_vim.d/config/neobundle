@@ -342,6 +342,22 @@ NeoBundle 'Keithbsmiley/tmux.vim'
 NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim' }
 NeoBundle 'Lokaltog/powerline-fontpatcher'
 
+" Gitを便利に使う
+NeoBundle 'tpope/vim-fugitive'
+"
+" " grep検索の実行後にQuickFix Listを表示する
+autocmd QuickFixCmdPost *grep* cwindow
+
+" コメントON/OFFを手軽に実行 (gcc)
+NeoBundle 'tomtom/tcomment_vim'
+
+" HTML閉じタグ後のコメントを,tで入力
+NeoBundle 'haya14busa/endtagcomment.vim'
+nmap ,t <Plug>(endtagcomment)
+
+" プロジェクト管理
+NeoBundle 'project.vim'
+
 "
 " カラースキーマ一式
 "
