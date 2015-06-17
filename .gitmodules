@@ -4,3 +4,6 @@
 [submodule "vim/third/neobundle.vim"]
 	path = vim/third/neobundle.vim
 	url = https://github.com/Shougo/neobundle.vim
+[submodule "vim/third/SublimeCtagsPHP"]
+	path = vim/third/SublimeCtagsPHP
+	url = https://github.com/erichard/SublimeCTagsPHP

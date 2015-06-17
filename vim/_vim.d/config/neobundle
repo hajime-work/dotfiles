@@ -296,6 +296,21 @@ nmap ,t <Plug>(endtagcomment)
 " プロジェクト管理
 " NeoBundle 'project.vim'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'szw/vim-tags'
+
+" @http://soramugi.hateblo.jp/entry/2013/12/01/150433
+NeoBundle 'soramugi/auto-ctags.vim'
+let g:auto_ctags = 1
+let g:auto_ctags_directory_list = ['.git']
+let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
+let g:auto_ctags_filetype_mode = 1
+
+au BufNewFile,BufRead *.php set tags+=php.tags  
+
+" ディレクトリ単位でのvimrcを有効にする
+NeoBundle 'thinca/vim-localrc'
+" let g:localvimrc_persistent=2
+" let g:localvimrc_sandbox=0
 
 " http://d.hatena.ne.jp/thinca/20130131/1359567419
 NeoBundle  'kana/vim-submode'
