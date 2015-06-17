@@ -11,8 +11,6 @@ nmap       s   [nora]
 imap       <c-f> <ESC>[nora]
 nmap       <c-f> <ESC>[nora]
 
-nmap [nora]c  :q
-
 " 起動した場所のファイルリスト
 nnoremap <silent> [nora]f :<C-u>Unite file file/new directory/new<CR>
 nnoremap <silent> [nora]<C-f> :<C-u>Unite file file/new directory/new<CR>
