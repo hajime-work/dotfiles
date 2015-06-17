@@ -67,7 +67,6 @@ NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'kannokanno/unite-dwm'
 
-
 let g:unite_source_grep_command              = 'ag'
 let g:unite_source_grep_default_opts         = '--nocolor --nogroup'
 let g:unite_source_grep_recursive_opt        = ''
@@ -77,67 +76,7 @@ let g:unite_enable_start_insert              = 1
 let g:unite_source_history_yank_enable       = 1
 
 
-" Prefixの設定
-nnoremap   [unite]     <Nop>
-nmap       <Leader>f   [unite]
 
-nmap <C-f> [unite]
-imap <C-f> <ESC>[unite]
-
-" VIMを起動したディレクトリを基準にしたファイルリストを開く
-nnoremap <silent> [unite]f :<C-u>Unite file file/new directory/new<CR>
-nnoremap <silent> [unite]<C-f> :<C-u>Unite file file/new directory/new<CR>
-
-" 履歴を開く
-nnoremap <silent> [unite]h :<C-u>Unite file_mru<CR>
-nnoremap <silent> [unite]<C-h> :<C-u>Unite file_mru<CR>
-
-" バッファを開く
-nnoremap <silent> [unite]b :<C-u>Unite dwm buffer<CR>
-nnoremap <silent> [unite]<C-b> :<C-u>Unite dwm buffer<CR>
-
-" 現在の位置でリストを開く
-nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir file file/new directory/new<CR>
-nnoremap <silent> [unite]<C-c> :<C-u>UniteWithBufferDir file file/new directory/new<CR>
-
-" アウトライン
-nnoremap <silent> [unite]o :<C-u>Unite outline fold mark<CR>
-nnoremap <silent> [unite]<C-o> :<C-u>Unite outline fold mark<CR>
-
-" ショートカット
-"nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files<CR>
-"nnoremap <silent> [unite]f :<C-u>Unite file file/new -buffer-name=file -auto-resize -wrap<CR>
-"nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-"nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir -buffer-name=register register<CR>
-"nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-"nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
-"nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
-"nnoremap <silent> [unite]d :<C-u>Unite dwm<CR>
-"nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
-"nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
-"nnoremap <silent> [unite]c :<C-u>Unite colorschame<CR>
-"nnoremap <silent> [unite]r :<C-u>Unite mark<CR>
-"nnoremap <silent> [unite]h :<C-u>Unite fold<CR>
-nnoremap <silent> [unite]g :<C-u>Unite git_cached<CR>
-nnoremap <silent> [unite]gm :<C-u>Unite git_modified<CR>
-nnoremap <silent> [unite]gu :<C-u>Unite git_unstaged<CR>
-nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-	"
-    " タブで開く
-    nnoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
-    inoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
-    " vimfiler で開く
-    "nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
-    "inoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
-    " dwm.vim で開く
-    nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('dwm_new')
-    inoremap <silent> <buffer> <expr> <C-O> unite#do_action('dwm_new')
-    " 終了
-    nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-    inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-endfunction
 " }}}
 
 " 辞書 {{{
@@ -287,21 +226,20 @@ endif
 
 " タイル式ウィンドウ管理 {{{
 " @See https://github.com/spolu/dwm.vim
-NeoBundle 'spolu/dwm.vim'
-
-" let g:dwm_master_pane_width=80
-let g:dwm_map_keys=0
-
-nnoremap <c-j> <c-w>w
-nnoremap <c-k> <c-w>W
-"nmap <m-r> <Plug>DWMRotateCounterclockwise
-"nmap <m-t> <Plug>DWMRotateClockwise
-"nmap <c-n> <Plug>DWMNew
-nmap <c-c> <Plug>DWMClose
-nmap <c-@> <Plug>DWMFocus
-nmap <c-Space> <Plug>DWMFocus
-nmap <c-l> <Plug>DWMGrowMaster
-nmap <c-h> <Plug>DWMShrinkMaster
+" NeoBundle 'spolu/dwm.vim'
+"
+" let g:dwm_map_keys=0 " let g:dwm_master_pane_width=80
+"
+" nnoremap <c-j> <c-w>w
+" nnoremap <c-k> <c-w>W
+" "nmap <m-r> <Plug>DWMRotateCounterclockwise
+" "nmap <m-t> <Plug>DWMRotateClockwise
+" "nmap <c-n> <Plug>DWMNew
+" nmap <c-c> <Plug>DWMClose
+" nmap <c-@> <Plug>DWMFocus
+" nmap <c-Space> <Plug>DWMFocus
+" nmap <c-l> <Plug>DWMGrowMaster
+" nmap <c-h> <Plug>DWMShrinkMaster
 "}}}
 
 " インデントをわかりやすくする {{{
@@ -356,7 +294,11 @@ NeoBundle 'haya14busa/endtagcomment.vim'
 nmap ,t <Plug>(endtagcomment)
 
 " プロジェクト管理
-NeoBundle 'project.vim'
+" NeoBundle 'project.vim'
+NeoBundle 'kien/ctrlp.vim'
+
+" http://d.hatena.ne.jp/thinca/20130131/1359567419
+NeoBundle  'kana/vim-submode'
 
 "
 " カラースキーマ一式

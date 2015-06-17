@@ -27,6 +27,12 @@ source ~/.vim.d/config/neobundle
 source ~/.vim.d/config/look_and_feel
 
 "
+" ウィンドウ操作
+"
+"source ~/.vim.d/config/split
+source ~/.vim.d/config/controll
+
+"
 " ローカルを読み込む
 "
 source ~/.vimrc.local
