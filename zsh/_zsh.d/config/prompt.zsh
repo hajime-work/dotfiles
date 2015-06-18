@@ -27,16 +27,18 @@ local directory_color=051
 local name_color=084
 
 local KAO1="@='-']"
-local KAO2="@=^-^]" \
-local MARK='%B%(!,%F{'$mark_color_2'}#%f,%F{'$mark_color_1'}>%f)%f%b '
-local KAO='%(?!%F{'$kao_color_1'}'${KAO1}'!%F{'$kao_color_2'}'${KAO2}')%f'
+local KAO2="@=^-^]"
+local MARK='%F{244}[%f%F{250}%n%f%F{244}]%f %B%(!,%F{'$mark_color_2'}#%f,>%f)%b '
+local KAO='%(?!%F{'$kao_color_1'}'${KAO1}'!%F{'$kao_color_2'}'${KAO2}')%f %F{243}>>>%f %F{202}`hostname -f`%f '
 #local prompt_fqdn="%B%F{$host_color}`hostname -f`%f%b%F{$normal_color}"
 local prompt_fqdn="%F{$host_color}`hostname -f`%f%F{$normal_color}"
 local prompt_directory="%F{$directory_color}%d%f%F{$normal_color}"
-local prompt_name="%F{$name_color}%n%f%F{$normal_color}"
+local prompt_name="%F{$name_color}%n%f%F{$norm\al_color}"
 #PROMPT="%F{$normal_color}<<$prompt_name at %F{$host_color}%m%f%F{$normal_color}>>%f%F{$normal_color} - [$prompt_directory] 
-PROMPT="$prompt_name@$prompt_fqdn - $prompt_directory
-$KAO $MARK"
+# PROMPT="$prompt_name@$prompt_fqdn - $prompt_directory
+# $KAO $MARK"
+PROMPT="%F{250}---%f %F{247}%D{%Y-%m-%d %H:%M:%S}%f %F{250}---%f $prompt_directory
+>>> ${KAO}${MARK}"
 PROMPT2="$KAO %F{gray}---<%f "
 
 autoload -Uz add-zsh-hook
