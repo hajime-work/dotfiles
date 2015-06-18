@@ -46,17 +46,10 @@ NeoBundle 'Shougo/vimproc',{'build':
 " @See https://sites.google.com/site/fudist/Home/qfixhowm/install
 NeoBundle 'fuenor/qfixhowm'
 
-" VimShell {{{
+" VimShell 
 NeoBundle 'Shougo/vimshell'
-nnoremap   [vimshell]   <Nop>
-nmap       <Leader>s          [vimshell]
 
-nnoremap <silent> [vimshell]s :VimShell<CR>
-nnoremap <silent> [vimshell]iphp :VimShellInteractive php<CR>
-vmap <silent> [vimshell]s :VimShellSendString<CR>
-" }}}
-
-" Unite {{{
+" Unite
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'ujihisa/unite-colorscheme'
@@ -66,44 +59,11 @@ NeoBundle 'taka84u9/unite-git'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'kannokanno/unite-dwm'
+NeoBundle 'tsukkee/unite-tag'
 
-
-
-
-" }}}
-
-" 辞書 {{{
+" 辞書 
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'mfumi/ref-dicts-en'
-"vim-ref
-"Ref webdictでalcを使う設定
-let g:ref_source_webdict_cmd = 'lynx -dump -nonumbers %s'
-"let g:ref_source_webdict_use_cache = 1
-let g:ref_source_webdict_sites = {
-            \ 'alc' : {
-            \   'url' : 'http://eow.alc.co.jp/%s/UTF-8/',
-            \   'cache' : 1
-            \   },
-            \ 'wiktionary' : {
-            \   'url' : 'http://ja.wiktionary.org/wiki/%s',
-            \   'keyword_encoding': 'utf-8',
-            \   'cache' : 1
-            \   }
-            \ }
-function! g:ref_source_webdict_sites.alc.filter(output)
-      return join(split(a:output, "\n")[42 :], "\n")
-endfunction
-
-" 
-" vimshell% cd ~/.vim/
-" vimshell% curl -sSL "http://jp1.php.net/get/php_manual_ja.tar.gz/from/this/mirror" | tar zxvf -
-"
-let g:ref_phpmanual_path = "/opt/vim/php-chunked-xhtml/"
-
-nmap ,ra :<C-u>Ref webdict alc 
-nmap ,rw :<C-u>Ref webdict wiktionary 
-nmap ,rp :<C-u>Ref phpmanual 
-" }}}
 
 " 補完プラグイン {{{
 " Luaオプションの有無で使用するプラグインを変更
@@ -217,7 +177,7 @@ endif
 
 " }}}
 
-" タイル式ウィンドウ管理 {{{
+" タイル式ウィンドウ管理 
 " @See https://github.com/spolu/dwm.vim
 " NeoBundle 'spolu/dwm.vim'
 "
@@ -233,12 +193,11 @@ endif
 " nmap <c-Space> <Plug>DWMFocus
 " nmap <c-l> <Plug>DWMGrowMaster
 " nmap <c-h> <Plug>DWMShrinkMaster
-"}}}
 
 " インデントをわかりやすくする {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors=0
-let g:indent_guides_start_level=2
+let g:indent_guides_start_level=4
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=236
@@ -260,8 +219,6 @@ NeoBundle 'h1mesuke/vim-alignta.git'
 NeoBundle 'taglist.vim'
 " タグジャンプ
 NeoBundle 'szw/vim-tags'
-" Unite Tag
-NeoBundle 'tsukkee/unite-tag'
 "Dockerfile Syntax
 NeoBundle 'ekalinin/Dockerfile.vim'
 "Vagrant Syntax
@@ -275,7 +232,6 @@ NeoBundle 'Lokaltog/powerline-fontpatcher'
 
 " Gitを便利に使う
 NeoBundle 'tpope/vim-fugitive'
-"
 
 " コメントON/OFFを手軽に実行 (gcc)
 NeoBundle 'tomtom/tcomment_vim'
@@ -286,7 +242,6 @@ NeoBundle 'haya14busa/endtagcomment.vim'
 " プロジェクト管理
 " NeoBundle 'project.vim'
 NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'szw/vim-tags'
 
 " @http://soramugi.hateblo.jp/entry/2013/12/01/150433
 NeoBundle 'soramugi/auto-ctags.vim'
@@ -294,16 +249,17 @@ let g:auto_ctags = 1
 let g:auto_ctags_directory_list = ['.git']
 let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 let g:auto_ctags_filetype_mode = 1
-
 au BufNewFile,BufRead *.php set tags+=php.tags  
 
 " ディレクトリ単位でのvimrcを有効にする
 NeoBundle 'thinca/vim-localrc'
-" let g:localvimrc_persistent=2
-" let g:localvimrc_sandbox=0
 
+" サブモードの有効化
 " http://d.hatena.ne.jp/thinca/20130131/1359567419
 NeoBundle  'kana/vim-submode'
+
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 
 "
 " カラースキーマ一式

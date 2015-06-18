@@ -15,11 +15,18 @@
 "   gj: カーソル位置の単語で検索
 "   gk: 検索結果を再開
 "
+" バッファ上
+"   C-h C-c 閉じる
+"
+"
 nnoremap   [nora] <Nop>
 nmap       s   [nora]
 imap       <c-f> <ESC>[nora]
 nmap       <c-f> <ESC>[nora]
 
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 200
 nnoremap <silent> [nora]aaa :<C-u>tabe ~/.vim.d/config/controll<CR>
 
 
@@ -32,7 +39,7 @@ nnoremap <silent> [nora]h :<C-u>Unite file_mru<CR>
 nnoremap <silent> [nora]<C-h> :<C-u>Unite file_mru<CR>
 
 " バッファを開く
-nnoremap <silent> [nore]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [nora]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [nore]<C-b> :<C-u>Unite buffer<CR>
 
 " 現在の位置でリストを開く
@@ -53,11 +60,14 @@ nnoremap <silent> [nora]<C-o> :<C-u>Unite outline fold mark<CR>
 " let g:unite_source_history_yank_enable       = 1
 
 " 検索
-nnoremap <silent> [nora]g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap [search] <nop>
+nmap [nora]g [search]
+
+nnoremap <silent> [search] :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 " カーソル位置の単語で検索
-nnoremap <silent> [nora]gj :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
+nnoremap <silent> [search]j :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
 " 検索の再開
-nnoremap <silent> [nora]gk :<C-u>UniteResume search-buffer<CR>
+nnoremap <silent> [search]k :<C-u>UniteResume search-buffer<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
@@ -113,18 +123,121 @@ call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
 call submode#map('changetab', 'n', '', 't', 'gt')
 
 " プロジェクト操作
+nnoremap [project] <nop>
+nmap [nora]p [project]
+
 let g:ctrlp_map = '<Nop>'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
-nnoremap [nora]a :<C-u>CtrlP<space>
-nnoremap [nora]p :<C-u>CtrlP<CR>
+let g:ctrlp_max_files  = 100000 " 対象ファイル最大数(default:10000)
+let g:ctrlp_max_depth = 10 " 検索対象の最大階層数(default:40)
+let g:ctrlp_clear_cache_on_exit = 0 " vim終了時にキャッシュクリアしない(default:1)
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18,results:50' " 検索ウィンドウの設定
 
+nnoremap [project] :<C-u>CtrlPCurWD<CR>
+"nnoremap [nora]p :<C-u>CtrlP<CR>
+" カレントバッファのルートを基準に検索
+nnoremap [project]P :<C-u>CtrlPRoot<CR>
+" カレントバッファを基準に検索
+nnoremap [project]p :<C-u>CtrlPCurWD<CR>
 " 履歴からファイルを探す
+nnoremap [project]m :<C-u>CtrlPMRUFiles<CR> 
 nnoremap [nora]m :<C-u>CtrlPMRUFiles<CR> 
-nnoremap [nora]q :<C-u>CtrlPQuickfix<CR>
-nnoremap [nora]t :<C-u>CtrlPTag<CR>
+nnoremap [project]q :<C-u>CtrlPQuickfix<CR>
+nnoremap [project]t :<C-u>CtrlPTag<CR>
 
 " HTML操作
 nmap [nora]et <Plug>(endtagcomment)
+
+
+
+" Vimshell
+nnoremap   [vimshell]   <Nop>
+nmap       [nora]s          [vimshell]
+
+nnoremap <silent> [vimshell]s :VimShell<CR>
+nnoremap <silent> [vimshell]iphp :VimShellInteractive php<CR>
+vmap <silent> [vimshell]s :VimShellSendString<C-Right>
+
+
+" 辞書: vim-ref
+nnoremap [ref] <Nop>
+nmap [nora]r [ref]
+
+"Ref webdictでalcを使う設定
+let g:ref_source_webdict_cmd = 'lynx -dump -nonumbers %s'
+"let g:ref_source_webdict_use_cache = 1
+let g:ref_source_webdict_sites = {
+            \ 'alc' : {
+            \   'url' : 'http://eow.alc.co.jp/%s/UTF-8/',
+            \   'cache' : 1
+            \   },
+            \ 'wiktionary' : {
+            \   'url' : 'http://ja.wiktionary.org/wiki/%s',
+            \   'keyword_encoding': 'utf-8',
+            \   'cache' : 1
+            \   }
+            \ }
+function! g:ref_source_webdict_sites.alc.filter(output)
+      return join(split(a:output, "\n")[42 :], "\n")
+endfunction
+
+"
+" 辞書 
+"
+" vimshell% cd ~/.vim/
+" vimshell% curl -sSL "http://jp1.php.net/get/php_manual_ja.tar.gz/from/this/mirror" | tar zxvf -
+"
+let g:ref_phpmanual_path = "/opt/vim/php-chunked-xhtml/"
+nmap [ref]a :<C-u>Ref webdict alc 
+nmap [ref]w :<C-u>Ref webdict wiktionary 
+nmap [ref]p :<C-u>Ref phpmanual 
+
+
+" Unite
+nnoremap [unite] <Nop>
+nmap [nora]u [unite]
+
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]u :<C-u>Unite file_mru buffer<CR>
+
+
+"
+" Snipet
+" imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+" let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+" fun! Filename(...)
+" let filename = expand('%:t:r')
+" if filename == '' | return a:0 == 2 ? a:2 : '' | endif
+" return !a:0 || a:1 == '' ? filename : substitute(a:1, '$1', filename, 'g')
+" endf
+"
+"
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+ 
+" SuperTab like snippets behavior.
+" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: "\<TAB>"
+
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
+nnoremap [snipet] <nop>
+nmap [nora]sn [snipet]
+nnoremap <silent> [snipet]e :<c-u>NeoSnippetEdit<cr>
+nnoremap <silent> [snipet] :<c-u>NeoSnippetEdit<cr>
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
