@@ -6,10 +6,22 @@
 " ノーマルモード: type [s]
 " 編集モード: type [ctrl] + [f]
 "
+" メモ
+"   aaa: 設定ファイルを開く
+"   m: 履歴を開く
+"   h,j,k,l: 分割ウィンドウを移動
+"   H,J,K,L: 分割ウィンドウそのものを移動
+"   g: 検索
+"   gj: カーソル位置の単語で検索
+"   gk: 検索結果を再開
+"
 nnoremap   [nora] <Nop>
 nmap       s   [nora]
 imap       <c-f> <ESC>[nora]
 nmap       <c-f> <ESC>[nora]
+
+nnoremap <silent> [nora]aaa :<C-u>tabe ~/.vim.d/config/controll<CR>
+
 
 " 起動した場所のファイルリスト
 nnoremap <silent> [nora]f :<C-u>Unite file file/new directory/new<CR>
@@ -20,8 +32,8 @@ nnoremap <silent> [nora]h :<C-u>Unite file_mru<CR>
 nnoremap <silent> [nora]<C-h> :<C-u>Unite file_mru<CR>
 
 " バッファを開く
-nnoremap <silent> [nore]b :<C-u>Unite dwm buffer<CR>
-nnoremap <silent> [nore]<C-b> :<C-u>Unite dwm buffer<CR>
+nnoremap <silent> [nore]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [nore]<C-b> :<C-u>Unite buffer<CR>
 
 " 現在の位置でリストを開く
 nnoremap <silent> [nora]c :<C-u>UniteWithBufferDir file file/new directory/new<CR>
@@ -40,9 +52,12 @@ nnoremap <silent> [nora]<C-o> :<C-u>Unite outline fold mark<CR>
 " let g:unite_enable_start_insert              = 1
 " let g:unite_source_history_yank_enable       = 1
 
+" 検索
 nnoremap <silent> [nora]g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> [nora]cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-nnoremap <silent> [nora]r :<C-u>UniteResume search-buffer<CR>
+" カーソル位置の単語で検索
+nnoremap <silent> [nora]gj :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
+" 検索の再開
+nnoremap <silent> [nora]gk :<C-u>UniteResume search-buffer<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
@@ -52,6 +67,8 @@ function! s:unite_my_settings()
     inoremap <silent> <buffer> <expr> <C-O> unite#do_action('split')
     nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('vsplit')
     inoremap <silent> <buffer> <expr> <C-J> unite#do_action('vsplit')
+    nnoremap <silent> <buffer> <expr> <C-V> unite#do_action('vsplit')
+    inoremap <silent> <buffer> <expr> <C-V> unite#do_action('vsplit')
     nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
     inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 endfunction
@@ -70,6 +87,24 @@ nnoremap [nora]K <C-w>K
 nnoremap [nora]L <C-w>L
 nnoremap [nora]H <C-w>H
 
+" 分割のリサイズ 増やす
+nnoremap [nora]> <C-w>>
+nnoremap [nora]< <C-w><
+nnoremap [nora]+ <C-w>+
+nnoremap [nora]- <C-w>-
+nnoremap [nora]= <C-w>=
+call submode#enter_with('windowi', 'n', '', 's>', '<C-w>>')
+call submode#enter_with('windowi', 'n', '', 's<', '<C-w><')
+call submode#enter_with('windowi', 'n', '', 's+', '<C-w>+')
+call submode#enter_with('windowi', 'n', '', 's-', '<C-w>-')
+call submode#map('windowi', 'n', '', '>', '<C-w>>')
+call submode#map('windowi', 'n', '', '<', '<C-w><')
+call submode#map('windowi', 'n', '', '+', '<C-w>+')
+call submode#map('windowi', 'n', '', '-', '<C-w>-')
+
+" 分割の最大化 (パイプが設定できないよう)
+nnoremap [nora]W <C-w>|
+
 " 閉じる
 nnoremap <c-c> :q <enter>
 
@@ -85,7 +120,11 @@ let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
 nnoremap [nora]a :<C-u>CtrlP<space>
 nnoremap [nora]p :<C-u>CtrlP<CR>
-nnoremap [nora]m :<C-u>CtrlPMRUFiles<CR>
+
+" 履歴からファイルを探す
+nnoremap [nora]m :<C-u>CtrlPMRUFiles<CR> 
 nnoremap [nora]q :<C-u>CtrlPQuickfix<CR>
 nnoremap [nora]t :<C-u>CtrlPTag<CR>
 
+" HTML操作
+nmap [nora]et <Plug>(endtagcomment)

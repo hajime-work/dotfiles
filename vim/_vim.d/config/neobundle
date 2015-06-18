@@ -282,7 +282,6 @@ NeoBundle 'tomtom/tcomment_vim'
 
 " HTML閉じタグ後のコメントを,tで入力
 NeoBundle 'haya14busa/endtagcomment.vim'
-nmap ,t <Plug>(endtagcomment)
 
 " プロジェクト管理
 " NeoBundle 'project.vim'
