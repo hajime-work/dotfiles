@@ -40,13 +40,13 @@ vim:
 	make $(HOME)/.vim.tmp/sential
 
 $(HOME)/.vim.tmp/sential:
-	mkdir $(HOME)/.vim.tmp
+	-mkdir $(HOME)/.vim.tmp
 	touch $@
 
 $(HOME)/.vim.d/sential:
 	ln -sf .dotfiles/vim/_vim.d $(HOME)/.vim.d
 	touch $@
-	$(HOME)/.vimrc: ./vim/_vimrc
+$(HOME)/.vimrc: ./vim/_vimrc
 	ln -f ./vim/_vimrc $(HOME)/.vimrc
 $(HOME)/.vimrc.local:
 	touch $@
