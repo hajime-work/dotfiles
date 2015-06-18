@@ -6,9 +6,9 @@ options word
     {% extends "${1:./layout.twig:レイアウトファイル名}" %}${0}
 snippet     block
 options word
-    {% block "${1:#:ブロックの名前}" %}
-    ${0}
-    {% endblock %}
+    {% block ${1:#:ブロックの名前} %}
+    ${2}
+    {% endblock %}${0}
 snippet val
 options word
     {@ ${1:#:変数名} @}${0}

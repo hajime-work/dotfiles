@@ -75,29 +75,28 @@ function! s:unite_my_settings()
     inoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
     nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('split')
     inoremap <silent> <buffer> <expr> <C-O> unite#do_action('split')
-    nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('vsplit')
-    inoremap <silent> <buffer> <expr> <C-J> unite#do_action('vsplit')
     nnoremap <silent> <buffer> <expr> <C-V> unite#do_action('vsplit')
     inoremap <silent> <buffer> <expr> <C-V> unite#do_action('vsplit')
     nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
     inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+    imap <buffer> <C-k>     <Plug>(unite_select_previous_line)
+    imap <buffer> <C-j>     <Plug>(unite_select_next_line)
 endfunction
 
 " 分割の移動
-nnoremap [nora]j <C-w>j
-nnoremap [nora]k <C-w>k
-nnoremap [nora]l <C-w>l
-nnoremap [nora]h <C-w>h 
+"nnoremap [nora]j <C-w>j
+"nnoremap [nora]k <C-w>k
+"nnoremap [nora]l <C-w>l
+"nnoremap [nora]h <C-w>h 
 
 " 分割の入れ替え
-nnoremap <c-j> <c-w>w
-nnoremap <c-k> <c-w>W 
 nnoremap [nora]J <C-w>J  
 nnoremap [nora]K <C-w>K
 nnoremap [nora]L <C-w>L
 nnoremap [nora]H <C-w>H
 
 " 分割のリサイズ 増やす
+nnoremap [nora]= <C-w>=
 nnoremap [nora]> <C-w>>
 nnoremap [nora]< <C-w><
 nnoremap [nora]+ <C-w>+
@@ -113,12 +112,14 @@ call submode#map('windowi', 'n', '', '+', '<C-w>+')
 call submode#map('windowi', 'n', '', '-', '<C-w>-')
 
 " 分割の最大化 (パイプが設定できないよう)
-nnoremap [nora]W <C-w>|
+nnoremap [nora]j <C-w>w
+nnoremap [nora]k <C-w>W
 
 " 閉じる
 nnoremap <c-c> :q <enter>
 
 " タブの移動
+nnoremap [nora]T :<C-u>Unite tab<cr>
 call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
 call submode#map('changetab', 'n', '', 't', 'gt')
 
@@ -231,7 +232,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " \ "\<Plug>(neosnippet_expand_or_jump)"
 " \: "\<TAB>"
 
-let g:neosnippet#snippets_directory='~/.vim/snippets/'
+let g:neosnippet#snippets_directory='~/.dotfiles/vim/snippets/'
 nnoremap [snipet] <nop>
 nmap [nora]sn [snipet]
 nnoremap <silent> [snipet]e :<c-u>NeoSnippetEdit<cr>
