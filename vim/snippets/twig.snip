@@ -1,0 +1,17 @@
+snippet     vm
+options word
+    {@ vm.${1:#:変数名}(${2}) @}${0}
+snippet     layout
+options word
+    {% extends "${1:./layout.twig:レイアウトファイル名}" %}${0}
+snippet     block
+options word
+    {% block "${1:#:ブロックの名前}" %}
+    ${0}
+    {% endblock %}
+snippet val
+options word
+    {@ ${1:#:変数名} @}${0}
+snippet {@
+options word
+    {@ ${1:#:変数名} @}${0}
