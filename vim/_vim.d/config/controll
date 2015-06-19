@@ -315,4 +315,16 @@ map [nora]Mg  :MemoGrep<CR>
 
 " Vimfile {{{
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
+nnoremap <silent> [nora]fe :<C-u>VimFilerBufferDir -quit<CR>
+nnoremap <silent> [nora]fi :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
+augroup vimrc
+  autocmd FileType vimfiler call s:vimfiler_my_settings()
+augroup END
+function! s:vimfiler_my_settings()
+    nmap <buffer> q <Plug>(vimfiler_exit)
+    nmap <buffer> Q <Plug>(vimfiler_hide)
+endfunction
+map [nora]j :<C-u>VimFiler -split -simple -winwidth=35 -no-quit<CR>
 "}}}
