@@ -124,8 +124,6 @@ nnoremap <c-c> :q <enter>
 
 " タブの移動
 nnoremap [nora]T :<C-u>Unite tab<cr>
-call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
-call submode#map('changetab', 'n', '', 't', 'gt')
 
 " プロジェクト操作
 nnoremap [project] <nop>
@@ -162,6 +160,7 @@ nnoremap   [vimshell]   <Nop>
 nmap       [nora]s          [vimshell]
 
 nnoremap <silent> [vimshell]s :VimShell<CR>
+nnoremap <silent> [vimshell]t :VimShellTab<CR>
 nnoremap <silent> [vimshell]iphp :VimShellInteractive php<CR>
 vmap <silent> [vimshell]s :VimShellSendString<C-Right>
 
