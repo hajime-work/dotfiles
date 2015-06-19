@@ -124,7 +124,6 @@ nnoremap [nora]> <C-w>>
 nnoremap [nora]< <C-w><
 nnoremap [nora]+ <C-w>+
 nnoremap [nora]- <C-w>-
-nnoremap [nora]= <C-w>=
 call submode#enter_with('windowi', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('windowi', 'n', '', 's<', '<C-w><')
 call submode#enter_with('windowi', 'n', '', 's+', '<C-w>+')
