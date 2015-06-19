@@ -17,7 +17,9 @@
 " バッファ上
 "   C-h C-c 閉じる
 "
-"
+" 方針
+"  プレフィックスとして使うキー
+"  - s, <space>, m, t
 nnoremap   [nora] <Nop>
 nmap       s   [nora]
 imap       <c-f> <ESC>[nora]
@@ -31,8 +33,10 @@ nnoremap  <silent> [nora:w]e :<C-u>VimFilerExplorer<CR>
 nnoremap  <silent> [nora:w]g :<C-u>GundoToggle<CR>
 nnoremap  <silent> [nora:w]t :<C-u>TagbarToggle<CR>
 nnoremap  <silent> [nora:w]r :<C-u>source %<CR>
-nnoremap  [nora:w]<space> :<C-u>Git status<CR>
-nnoremap  [nora:w]a :<C-u>Git add %<CR>:<C-u>Git commit<CR>
+nnoremap  [nora:w]s :<C-u>Git status<CR>
+nnoremap  [nora:w]a :<C-u>Git add %<CR>
+nnoremap  [nora:w]c :<C-u>Git commit<CR>
+nnoremap  [nora:w]d :<C-u>Git diff %<CR>
 
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
