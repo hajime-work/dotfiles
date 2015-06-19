@@ -251,7 +251,7 @@ endif
 " メモ機能
 "set QFixHowm_Key = '<nop>'
  
-"let howm_dir             = 'c:/howm'
+let howm_dir             = '~/memo'
 "let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
 "let howm_fileencoding    = 'utf8'
 "let howm_fileformat      = 'linux'
