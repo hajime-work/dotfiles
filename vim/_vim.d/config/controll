@@ -34,6 +34,7 @@ nnoremap  <silent> [nora:w]g :<C-u>GundoToggle<CR>
 nnoremap  <silent> [nora:w]t :<C-u>TagbarToggle<CR>
 nnoremap  <silent> [nora:w]r :<C-u>source %<CR>
 nnoremap  [nora:w]s :<C-u>Git status<CR>
+nnoremap  [nora:w]p :<C-u>Git push<CR>
 nnoremap  [nora:w]a :<C-u>Git add %<CR>
 nnoremap  [nora:w]c :<C-u>Git commit<CR>
 nnoremap  [nora:w]d :<C-u>Git diff %<CR>
@@ -133,9 +134,6 @@ call submode#map('windowi', 'n', '', '<', '<C-w><')
 call submode#map('windowi', 'n', '', '+', '<C-w>+')
 call submode#map('windowi', 'n', '', '-', '<C-w>-')
 
-" 分割の最大化 (パイプが設定できないよう)
-nnoremap [nora]j <C-w>w
-nnoremap [nora]k <C-w>W
 
 " 閉じる
 nnoremap <c-c> :q <enter>
