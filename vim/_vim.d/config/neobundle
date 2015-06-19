@@ -45,6 +45,7 @@ NeoBundle 'Shougo/vimproc',{'build':
 "
 " @See https://sites.google.com/site/fudist/Home/qfixhowm/install
 NeoBundle 'fuenor/qfixhowm'
+NeoBundle "osyo-manga/unite-qfixhowm"
 
 " VimShell 
 NeoBundle 'Shougo/vimshell'
