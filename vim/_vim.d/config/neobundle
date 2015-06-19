@@ -25,7 +25,7 @@ call neobundle#begin(expand('~/.dotfiles/vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Vim Filer
-" NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler.vim'
 
 " Vim Procのコンパイル設定
 NeoBundle 'Shougo/vimproc',{'build': 
@@ -44,8 +44,13 @@ NeoBundle 'Shougo/vimproc',{'build':
 " メモ帳
 "
 " @See https://sites.google.com/site/fudist/Home/qfixhowm/install
+NeoBundle 'fuenor/qfixgrep'
 NeoBundle 'fuenor/qfixhowm'
 NeoBundle "osyo-manga/unite-qfixhowm"
+NeoBundle 'glidenote/memolist.vim'
+
+"マークダウン
+NeoBundle 'plasticboy/vim-markdown'
 
 " VimShell 
 NeoBundle 'Shougo/vimshell'
