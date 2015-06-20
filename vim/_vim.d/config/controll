@@ -29,7 +29,7 @@ nmap       <c-f> <ESC>[nora]
 " ウインドウ操作系
 nnoremap  [nora:w] <nop>
 nmap      <space>  [nora:w]
-nnoremap  <silent> [nora:w]e :<C-u>VimFilerExplorer<CR>
+nnoremap  <silent> [nora:w]e :<C-u>VimFilerCreate -split -simple -winwidth=35 -no-quit<CR>
 nnoremap  <silent> [nora:w]g :<C-u>GundoToggle<CR>
 nnoremap  <silent> [nora:w]t :<C-u>TagbarToggle<CR>
 nnoremap  <silent> [nora:w]r :<C-u>source %<CR>
@@ -38,6 +38,7 @@ nnoremap  [nora:w]p :<C-u>Git push<CR>
 nnoremap  [nora:w]a :<C-u>Git add %<CR>
 nnoremap  [nora:w]c :<C-u>Git commit<CR>
 nnoremap  [nora:w]d :<C-u>Git diff %<CR>
+nnoremap  [nora:w]o :<C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
 
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
@@ -99,6 +100,7 @@ function! s:unite_my_settings()
     nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('split')
     inoremap <silent> <buffer> <expr> <C-O> unite#do_action('split')
     nnoremap <silent> <buffer> <expr> <C-V> unite#do_action('vsplit')
+    inoremap <silent> <buffer> <expr> <C-V> unite#do_action('vsplit')
     inoremap <silent> <buffer> <expr> <C-V> unite#do_action('vsplit')
     nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
     inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
@@ -340,16 +342,28 @@ augroup vimrc
   autocmd filetype vimfiler call s:vimfiler_my_settings()
 augroup end
 function! s:vimfiler_my_settings()
-    nmap <buffer> <cr> <plug>(vimfiler_expand_or_edit)
+    "call unite#custom_default_action('directory','vimfilerbufferdir')
+    "call unite#custom_default_action('directory','lcd')
+    "call unite#custom_default_action('directory', 'cd')
+
+    nmap <buffer> <cr> <plug>(vimfiler_expand)
     nmap <buffer> q <plug>(vimfiler_exit)
     nmap <buffer> q <plug>(vimfiler_hide)
+    nnoremap <buffer><silent>/ :call UniteFileCurrentDir()<CR>
+endfunction
+
+function! UniteFileCurrentDir()
+  let s  = ':Unite file -start-insert -path='
+  let s .= vimfiler#get_current_vimfiler().current_dir
+
+  execute s
 endfunction
 "}}}
 "
 "
 set virtualedit=all     " カーソルを文字が存在しない部分でも動けるようにする
 set hidden              " バッファを閉じる代わりに隠す（Undo履歴を残すため）
-set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
+"set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
 set showmatch           " 対応する括弧などをハイライト表示する
 set matchtime=3         " 対応括弧のハイライト表示を3秒にする
 " 対応括弧に'<'と'>'のペアを追加
@@ -372,10 +386,10 @@ nnoremap g# g#zz
 " vを二回で行末まで選択
 vnoremap v $h
 
-nmap <s-k> <c-w>+
-nmap <s-j> <c-w>-
-nmap <s-h> <c-w><
-nmap <s-l> <c-w>>
+"nmap <s-k> <c-w>+
+"nmap <s-j> <c-w>-
+"nmap <s-h> <c-w><
+"nmap <s-l> <c-w>>
 
 NeoBundleLazy "sjl/gundo.vim", {
       \ "autoload": {
