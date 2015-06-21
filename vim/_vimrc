@@ -101,19 +101,25 @@ set lazyredraw
 set ttyfast
 
 " ウィンドウ幅で折り返す
-set wrap
+set nowrap
 
 " 固定折り返し文字幅を持たない
 set textwidth=0
+
+" 行番号を表示する
+set number
+
+set scrolloff=16
 
 " }}}
 
 " 折りたたみ {{{
 "set foldtext=FoldCCtext()
-set foldcolumn=4
+set foldcolumn=3
 set fillchars=vert:\|
 hi Folded gui=bold term=standout ctermbg=LightGrey ctermfg=DarkBlue guibg=Grey30 guifg=Grey80
 hi FoldColumn gui=bold term=standout ctermbg=LightGrey ctermfg=DarkBlue guibg=Grey guifg=DarkBlue
+
 " }}}
 
 " タブ系の設定 {{{
@@ -125,10 +131,182 @@ set expandtab
 
 " ステータスラインの設定 {{{
 set laststatus=2
-set showmode
+"set showmode
+set noshowmode
 set showcmd
 set wildmenu
 set ruler
+
+NeoBundle 'itchyny/lightline.vim'
+" wonbat solarized landscape
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+ 
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'fileencoding': 'MyFileencoding',
+      \   'mode': 'MyMode',
+      \   'ctrlpmark': 'CtrlPMark',
+      \ },
+      \ 'component_expand': {
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \ },
+      \ 'component_type': {
+      \   'syntastic': 'error',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+
+function! MyModified()
+  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
+
+function! MyFilename()
+  let fname = expand('%:t')
+  return fname == 'ControlP' ? g:lightline.ctrlp_item :
+        \ fname == '__Tagbar__' ? g:lightline.fname :
+        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \ &ft == 'unite' ? unite#get_status_string() :
+        \ &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+      let mark = ''  " edit here for cool mark
+      let _ = fugitive#head()
+      return strlen(_) ? mark._ : ''
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  let fname = expand('%:t')
+  return fname == '__Tagbar__' ? 'Tagbar' :
+        \ fname == 'ControlP' ? 'CtrlP' :
+        \ fname == '__Gundo__' ? 'Gundo' :
+        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+        \ fname =~ 'NERD_tree' ? 'NERDTree' :
+        \ &ft == 'unite' ? 'Unite' :
+        \ &ft == 'vimfiler' ? 'VimFiler' :
+        \ &ft == 'vimshell' ? 'VimShell' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! CtrlPMark()
+  if expand('%:t') =~ 'ControlP'
+    call lightline#link('iR'[g:lightline.ctrlp_regex])
+    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+          \ , g:lightline.ctrlp_next], 0)
+  else
+    return ''
+  endif
+endfunction
+
+let g:ctrlp_status_func = {
+  \ 'main': 'CtrlPStatusFunc_1',
+  \ 'prog': 'CtrlPStatusFunc_2',
+  \ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+  return lightline#statusline(0)
+endfunction
+
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+    let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
+
+augroup AutoSyntastic
+  autocmd!
+  autocmd BufWritePost *.c,*.cpp call s:syntastic()
+augroup END
+function! s:syntastic()
+  SyntasticCheck
+  call lightline#update()
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
+
+" set statusline=%<     " 行が長すぎるときに切り詰める位置
+" set statusline+=[%n]  " バッファ番号
+" set statusline+=%m    " %m 修正フラグ
+" set statusline+=%r    " %r 読み込み専用フラグ
+" set statusline+=%h    " %h ヘルプバッファフラグ
+" set statusline+=%w    " %w プレビューウィンドウフラグ
+" set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
+" set statusline+=%y    " バッファ内のファイルのタイプ
+" set statusline+=\     " 空白スペース
+" if winwidth(0) >= 130
+"     set statusline+=%F    " バッファ内のファイルのフルパス
+" else
+"     set statusline+=%t    " ファイル名のみ
+" endif
+" set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
+" set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
+" set statusline+=\ \   " 空白スペース2個
+" set statusline+=%1l   " 何行目にカーソルがあるか
+" set statusline+=/
+" set statusline+=%L    " バッファ内の総行数
+" set statusline+=,
+" set statusline+=%c    " 何列目にカーソルがあるか
+" set statusline+=%V    " 画面上の何列目にカーソルがあるか
+" set statusline+=\ \   " 空白スペース2個
+" set statusline+=%P    " ファイル内の何％の位置にあるか
+
 " }}}
 
 " 日本語関連 {{{
@@ -177,6 +355,13 @@ NeoBundleLazy 'osyo-manga/unite-fold'
 " NeoBundleLazy 'thinca/vim-unite-history'
 " NeoBundleLazy 'kannokanno/unite-dwm'
 NeoBundleLazy 'tsukkee/unite-tag'
+
+
+NeoBundleLazy 'thinca/vim-ref', {
+\ 'autoload' : {'commands': [ 'Ref' ] },
+\ 'depends' : ["mfumi/ref-dicts-en"]
+\}
+NeoBundleLazy 'mfumi/ref-dicts-en'
 
 "
 " メモ帳
@@ -260,6 +445,7 @@ NeoBundle 'tpope/vim-fugitive'
 " コメントON/OFFを手軽に実行 (gcc)
 NeoBundle 'tomtom/tcomment_vim'
 
+
 " カラースキーマ
 NeoBundle 'nanotech/jellybeans.vim'
 let s:bundle = neobundle#get('jellybeans.vim')
@@ -332,6 +518,11 @@ function! ToggleMouse()
 endfunction
 " }}}
 
+" モードトグル {{{
+nmap <silent> [nora:mode]p :<C-u>set paste!<CR>
+nmap <silent> [nora:mode]m :<C-u>call ToggleMouse()<CR>
+" }}}
+
 " w!!でsudo経由で保存
 cmap w!! w !sudo tee > /dev/null %
 
@@ -367,18 +558,20 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 
 " エクスプローラを開く
-nnoremap <silent> [nora]e :<C-u>VimFilerCreate -split -simple -winwidth=35 -no-quit<CR>
+nnoremap <silent> [nora:ext]e :<C-u>VimFilerCreate -split -simple -winwidth=35 -no-quit<CR>
 nnoremap <silent> [nora]<C-e> :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
 
 " タグバーを開く
-nnoremap <silent> [nora]t :<C-u>TagbarToggle<CR>
+nnoremap <silent> [nora:ext]t :<C-u>TagbarToggle<CR>
+" gundo
+nnoremap <silent> [nora:ext]g :<C-u>GundoToggle<CR>
 
 
 " }}}
 
 " Unite系 {{{
 nnoremap <silent> [nora]b :<C-u>Unite buffer bookmark<CR>
-nnoremap <silent> [nora]o :<C-u>Unite outline fold<CR>
+nnoremap <silent> [nora]o :<C-u>Unite fold outline<CR>
 nnoremap <silent> [nora]<C-h> :<C-u>Unite buffer file_mru<CR>
 nnoremap <silent> [nora]c :<C-u>UniteWithBufferDir file file/new directory/new<CR>
 nnoremap <silent> [nora]q :<C-u>Unite qfixhowm qfixhowm/new <CR>
@@ -672,25 +865,25 @@ endif
 " Hack {{{
 
 " Use vsplit mode
-"if has("vim_starting") && !has('gui_running') && has('vertsplit')
-"  function! g:EnableVsplitMode()
-"    " enable origin mode and left/right margins
-"    let &t_CS = "y"
-"    let &t_ti = &t_ti . "\e[?6;69h"
-"    let &t_te = "\e[?6;69l\e[999H" . &t_te
-"    let &t_CV = "\e[%i%p1%d;%p2%ds"
-"    call writefile([ "\e[?6;69h" ], "/dev/tty", "a")
-"  endfunction
-"
-"  " old vim does not ignore CPR
-"  map <special> <Esc>[3;9R <Nop>
-"
-"  " new vim can't handle CPR with direct mapping
-"  " map <expr> ^[[3;3R g:EnableVsplitMode()
-"  set t_F9=[3;3R
-"  map <expr> <t_F9> g:EnableVsplitMode()
-"  let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
-"endif
+if has("vim_starting") && !has('gui_running') && has('vertsplit')
+ function! g:EnableVsplitMode()
+   " enable origin mode and left/right margins
+   let &t_CS = "y"
+   let &t_ti = &t_ti . "\e[?6;69h"
+   let &t_te = "\e[?6;69l\e[999H" . &t_te
+   let &t_CV = "\e[%i%p1%d;%p2%ds"
+   call writefile([ "\e[?6;69h" ], "/dev/tty", "a")
+ endfunction
+
+ " old vim does not ignore CPR
+ map <special> <Esc>[3;9R <Nop>
+
+ " new vim can't handle CPR with direct mapping
+ " map <expr> ^[[3;3R g:EnableVsplitMode()
+ set t_F9=[3;3R
+ map <expr> <t_F9> g:EnableVsplitMode()
+ let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
+endif
 
 command! -nargs=0 JunkFile call s:open_junk_file()
 function! s:open_junk_file()
@@ -706,7 +899,6 @@ function! s:open_junk_file()
 endfunction
 
 " }}}
-
 
 " ネオバンドル用の終了 {{{
 call neobundle#end()
