@@ -1,0 +1,89 @@
+" vim: set ft=vim ts=4 sw=4 sts=4 :
+"
+" VIM設定ファイル
+"
+" @Author Hajime <mail@hazime.org>
+"
+
+
+
+"
+" VIとの互換性を保たない
+"
+set nocompatible
+
+"
+" VIMが自動で作るファイルの設定
+"
+
+" ファイルロケーション
+set directory=~/.vim.tmp//
+set backupdir=~/.vim.tmp//
+
+" Swapは使わない
+set noswapfile
+
+" バックアップは使う
+set backup
+
+" VIMコマンド履歴保持数
+set viminfo='100
+
+" VIMレジストリ保持数
+set viminfo+="1000
+
+" VIMINFO保存ファイル
+" set viminfo+=n/tmp/vim/$USER/info
+set viminfo+=n~/.vim.info
+
+"
+" 同時編集が発生した時の挙動
+"
+
+" 他の場所で更新されたら自動的に読み込む
+set autoread
+
+" バックスペースで削除可能なものを増やす
+set backspace=start,eol,indent
+
+
+"
+" 検索の挙動
+"
+
+" 検索時に大文字小文字を無視
+set ignorecase
+
+" ただし、検索文字に大文字小文字があれば無視しない
+set smartcase  " do not ignore capital when search words includs both
+
+" 検索文字をハイライトしない
+set nohlsearch
+
+"
+" ステータスラインの設定
+"
+set laststatus=2
+set showmode
+set showcmd
+set wildmenu
+set ruler
+
+"
+" 日本語関連
+"
+
+" 文字コード判定順序
+set fileencodings=utf-8,euc-jp,iso-2022-jp,cp932
+
+
+"
+"
+"
+
+" タブサイズの設定
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+

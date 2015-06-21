@@ -1,0 +1,15 @@
+"
+" 設定
+"
+
+" 
+nnoremap [nora] <NOP>
+nmap s [nora]
+nmap <C-f> [nora]
+imap <c-f> <ESC>[nora]
+
+nnoremap [nora:mode] <NOP>
+nmap m [nora:mode]
+
+nnoremap [nora:ext] <NOP>
+nmap <scpace> [nora:ext]
