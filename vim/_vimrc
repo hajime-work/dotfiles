@@ -561,6 +561,10 @@ nmap <silent> [nora]<C-j> <C-w>j
 nmap <silent> [nora]<C-k> <C-w>k
 nmap <silent> [nora]<C-l> <C-w>l
 nmap <silent> [nora]<C-h> <C-w>h
+nmap <silent> <S-l> <C-w>>
+nmap <silent> <S-h> <C-w><
+nmap <silent> <S-k> <C-w>+
+nmap <silent> <S-j> <C-w>
 nnoremap [nora]= <C-w>=
 nnoremap [nora]> <C-w>>
 nnoremap [nora]< <C-w><
@@ -578,16 +582,29 @@ function! s:bundle.hooks.on_source(bundle)
     call submode#map('windowi', 'n', '', '-', '<C-w>-')
 endfunction
 
+" 分割の移動
+nmap [nora]wo <C-w>\|<C-w>_
+nmap [nora]ww <C-w>=
+
+
+" タブ操作 {{{
+nmap T :tabnew<CR>
+nmap <silent> tn :tabnext<CR>
+nmap <silent> tp :tabprevius<CR>
+nnoremap <silent> [nora]T :<C-u>Unite tab<CR>
+"}}}
+
 " エクスプローラを開く
 nnoremap <silent> [nora:ext]e :<C-u>VimFilerCreate -split -simple -winwidth=35 -no-quit<CR>
 nnoremap <silent> [nora]<C-e> :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
 
 " タグバーを開く
 nnoremap <silent> [nora:ext]t :<C-u>TagbarToggle<CR>
-nnoremap <silent> [nora]T :<C-u>Unite tab<CR>
 
 " gundo
 nnoremap <silent> [nora:ext]g :<C-u>GundoToggle<CR>
+
+
 
 
 " }}}
@@ -596,6 +613,8 @@ nnoremap <silent> [nora:ext]g :<C-u>GundoToggle<CR>
 nnoremap <silent> [nora]b :<C-u>Unite buffer bookmark<CR>
 nnoremap <silent> [nora]o :<C-u>Unite fold outline<CR>
 nnoremap <silent> [nora]<C-h> :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> [nora]f :<C-u>Unite file file/new directory/new<CR>
+nnoremap <silent> [nora]<C-f> :<C-u>Unite file file/new directory/new<CR>
 nnoremap <silent> [nora]c :<C-u>UniteWithBufferDir file file/new directory/new<CR>
 nnoremap <silent> [nora]q :<C-u>Unite qfixhowm qfixhowm/new <CR>
 nnoremap <silent> [nora]<C-q> :<C-u>Unite qfixhowm qfixhowm/new <CR>
@@ -985,4 +1004,3 @@ nnoremap <silent> [nora:ext]r : <C-u>QuickRun<CR>
 call neobundle#end()
 filetype plugin indent on
 " }}}
-
