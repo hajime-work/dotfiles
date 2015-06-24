@@ -268,7 +268,7 @@ NeoBundleLazy "thinca/vim-template"
 
 
 " ディレクトリ単位でのvimrcを有効にする
-NeoBundleLazy 'thinca/vim-localrc'
+NeoBundle 'thinca/vim-localrc'
 
 " ctagsを自動化
 NeoBundleLazy 'soramugi/auto-ctags.vim'
@@ -898,4 +898,12 @@ let g:vdebug_keymap = {
 " ネオバンドル用の終了 {{{
 call neobundle#end()
 filetype plugin indent on
+" }}}
+
+" local vimrc {{{
+
+if filereadable("~/.vimrc.local")
+   source ~/.vimrc.local
+endif
+
 " }}}
