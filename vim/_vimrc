@@ -266,10 +266,6 @@ NeoBundleLazy  'nathanaelkane/vim-indent-guides'
 " VimTemplate
 NeoBundleLazy "thinca/vim-template"
 
-
-" ディレクトリ単位でのvimrcを有効にする
-NeoBundle 'thinca/vim-localrc'
-
 " ctagsを自動化
 NeoBundleLazy 'soramugi/auto-ctags.vim'
 
@@ -277,10 +273,19 @@ NeoBundleLazy 'soramugi/auto-ctags.vim'
 " プログラミング用
 "
 " HTML5シンタックスを有効にする
-NeoBundleLazy 'othree/html5.vim.git', {"autoload": {"filetypes": ['html']}}
+" NeoBundleLazy 'othree/html5.vim.git', {"autoload": {"filetypes": ['html']}}
+NeoBundleLazy 'taichouchou2/html5', {"autoload": {"filetypes": ['html']}}
+NeoBundleLazy 'mattn/emmet-vim', {"autoload": {"filetypes": ['html']}}
+
+" CSS3 Syntax
+NeoBundleLazy 'taichouchou2/vim-css3-syntax', {"autoload": {"filetypes": ['css','scss','sass']}}
+
+" JS Syntax
+NeoBundleLazy 'taichouchou2/vim-javascript', {"autoload": {"filetypes": ['javascript']}}
 
 " CoffeeScript用プラグイン
-NeoBundleLazy 'kchmck/vim-coffee-script', {"autoload": {"filetype": ["coffee"]}}
+NeoBundleLazy 'kchmck/vim-coffee-script', {"autoload": {"filetypes": ['coffee']}}
+
 
 " Align
 NeoBundleLazy 'h1mesuke/vim-alignta.git', {"autoload": {"commands": ["Align"]}}
@@ -317,6 +322,10 @@ NeoBundleLazy 'glidenote/memolist.vim', {"autoload": {"commands": ["MemoList"]}}
 " }}}
 
 " 設定 {{{
+
+" ディレクトリ単位でのvimrcを有効にする
+NeoBundle 'thinca/vim-localrc'
+
 NeoBundle 'kana/vim-textobj-user'
 
 " Submoduleを有効にする
@@ -875,7 +884,6 @@ nnoremap <silent> [nora:ext]r : <C-u>QuickRun<CR>
 
 " }}}
 
-
 " デバッグ {{{
 NeoBundle 'joonty/vdebug.git'
 nmap <C-b> :Breakpoint<CR>
@@ -894,16 +902,14 @@ let g:vdebug_keymap = {
 \}
 " }}}
 
-
 " ネオバンドル用の終了 {{{
 call neobundle#end()
 filetype plugin indent on
+NeoBundleCheck
 " }}}
 
 " local vimrc {{{
-
 if filereadable("~/.vimrc.local")
    source ~/.vimrc.local
 endif
-
 " }}}
