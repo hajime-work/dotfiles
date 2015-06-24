@@ -38,8 +38,8 @@ local prompt_name="%F{$name_color}%n%f%F{$norm\al_color}"
 #PROMPT="%F{$normal_color}<<$prompt_name at %F{$host_color}%m%f%F{$normal_color}>>%f%F{$normal_color} - [$prompt_directory] 
 # PROMPT="$prompt_name@$prompt_fqdn - $prompt_directory
 # $KAO $MARK"
-PROMPT="%F{250}---%f %F{247}%D{%Y-%m-%d %H:%M:%S}%f %F{250}---%f $prompt_directory
->>> ${KAO}${MARK}"
+PROMPT="%F{220}---%f %F{220}%D{%Y-%m-%d %H:%M:%S}%f %F{220}---%f $prompt_directory
+%F{084}>>>%f ${KAO}${MARK}"
 PROMPT2="$KAO %F{gray}---<%f "
 
 autoload -Uz add-zsh-hook
