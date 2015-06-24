@@ -465,6 +465,7 @@ nmap [nora]ww <C-w>=
 nmap T :tabnew<CR>
 nmap <silent> tn :tabnext<CR>
 nmap <silent> tp :tabprevius<CR>
+nmap <silent> te :tabedit<space>
 nnoremap <silent> [nora]T :<C-u>Unite tab<CR>
 "}}}
 
