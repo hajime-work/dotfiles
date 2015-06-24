@@ -46,7 +46,7 @@ nmap <C-f> <ESC>[nora]
 imap <c-f> <ESC>[nora]
 
 nnoremap [nora:mode] <NOP>
-nmap m [nora:mode]
+nmap m <ESC>[nora:mode]
 
 nnoremap [nora:vs] <NOP>
 nmap [nora]s <ESC>[nora:vs]
@@ -274,14 +274,14 @@ NeoBundleLazy 'soramugi/auto-ctags.vim'
 "
 " HTML5シンタックスを有効にする
 " NeoBundleLazy 'othree/html5.vim.git', {"autoload": {"filetypes": ['html']}}
-NeoBundleLazy 'taichouchou2/html5', {"autoload": {"filetypes": ['html']}}
+NeoBundleLazy 'othree/html5.vim', {"autoload": {"filetypes": ['html']}}
 NeoBundleLazy 'mattn/emmet-vim', {"autoload": {"filetypes": ['html']}}
 
 " CSS3 Syntax
-NeoBundleLazy 'taichouchou2/vim-css3-syntax', {"autoload": {"filetypes": ['css','scss','sass']}}
+NeoBundleLazy 'hail2u/vim-css3-syntax.git', {"autoload": {"filetypes": ['css','scss','sass']}}
 
 " JS Syntax
-NeoBundleLazy 'taichouchou2/vim-javascript', {"autoload": {"filetypes": ['javascript']}}
+NeoBundleLazy 'jelera/vim-javascript-syntax', {"autoload": {"filetypes": ['javascript']}}
 
 " CoffeeScript用プラグイン
 NeoBundleLazy 'kchmck/vim-coffee-script', {"autoload": {"filetypes": ['coffee']}}
@@ -547,7 +547,13 @@ nnoremap [nora]m :<C-u>CtrlPMRUFiles<CR>
 " }}}
 
 " HTML操作 {{{
-nmap [nora]et <Plug>(endtagcomment)
+
+autocmd NoraAutoCmd FileType html call s:html_setting()
+function! s:html_setting()
+    nmap [nora]et <Plug>(endtagcomment)
+    nmap [nora]; <c-y>,
+    imap ;; <c-y>,
+endfunction
 " }}}
 
 " 辞書: vim-ref {{{
@@ -640,7 +646,7 @@ nnoremap <silent> [search]k :<C-u>UniteResume search-buffer<CR>
 " Git系 {{{
 nnoremap  [nora:ext]s :<C-u>Git status<CR>
 nnoremap  [nora:ext]p :<C-u>Git push<CR>
-nnoremap  [nora:ext]a :<C-u>Git add %<CR>
+nnoremap  [nora:ext]a :<C-u>Git add %<CR><CR>
 nnoremap  [nora:ext]c :<C-u>Git commit<CR>
 nnoremap  [nora:ext]d :<C-u>Git diff %<CR>
 " }}}
