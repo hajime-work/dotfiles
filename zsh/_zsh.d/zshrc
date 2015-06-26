@@ -106,6 +106,9 @@ local mark_color=193
 # ブランチの色
 local branch_color=193
 
+# Input Color
+local input_color=283
+
 #local KAO1="(*'-')/"
 #local KAO2="(*;-;%)<"
 #local KAO1="(´・ω・)/"
@@ -132,7 +135,7 @@ local line2="$line2%F{$normal_color}>>>"
 local line2="$line2 %F{$mark_color}${mark}%f"
 local line2="$line2 %F{$normal_color}>%f ${host_part} [${name_part}]"
 local line3=""
-local line3="%F{$normal_color}> %f"
+local line3="%F{$input_color}> %f"
 
 PROMPT="$line1
 $line2
