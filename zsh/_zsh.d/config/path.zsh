@@ -3,6 +3,8 @@
 #
 
 
+# パス関係の処理 {{{
+
 # 重複したパスを登録しない。
 typeset -U path cdpath fpath manpath
 
@@ -17,5 +19,7 @@ path=(/bin ~/bin(N-/) /usr/local/bin(N-/) ${path})
 if [ $(id -u) -eq 0 ]; then
     path=($sudo_path $path)
 fi
+
+# }}}
 
 # vim: ft=sh :

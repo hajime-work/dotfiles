@@ -1,13 +1,192 @@
-# 
+#
 # .zshrc
 # 
 # @SeeAlso _zshenv
 #
 
+# ----------------------
+# CDはpushdにする 
+# ----------------------
+setopt auto_pushd
 
-# ローカルファイルの読み込み
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+# CD直後にLSをさせる
+function cd() {
+    builtin cd $@ && ls --color=auto;
+}
 
 
+# ----------------------
+# キーバインド
+# ----------------------
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+bindkey -e # key binding as emacs style
 
-# vim: set ft=zsh :
+# ----------------------
+# LSに色をつける
+# ----------------------
+export LSCOLORS=exfxcxdxbxegedabagacad
+alias ls="ls --color"
+alias ll="ls -l"
+alias la="ls -a"
+
+# Color Test
+function color256() {
+for c in {000..255}
+do
+    echo -n "\e[38;5;${c}m $c"
+    [ $(($c%16)) -eq 15 ] && echo
+done
+echo
+}
+
+# ヒストリ {{{
+# ----------------------
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt bang_hist
+setopt extended_history
+setopt share_history
+setopt hist_ignore_all_dups
+autoload history-search-end
+# }}}
+
+# プロンプトの設定 {{{
+# ----------------------
+
+# --- 2015-06-26 14:39:00 --- /home/kurari/.dotfiles/zsh
+# >>> @='-'] >>> ThinkpadW540 [kurari]
+# > 
+setopt prompt_subst
+setopt prompt_percent
+setopt transient_rprompt
+
+
+# ブランチ情報を表示する
+autoload -Uz add-zsh-hook
+autoload -Uz colors
+autoload -Uz vcs_info
+autoload -Uz is-at-least
+
+#zstyle ':vcs_info:*' enable git svn hg bzr
+#zstyle ':vcs_info:*' formats '(%s)-(%b)'
+#zstyle ':vcs_info:*' actionformats '(%s)-(%b|%a)-'
+#zstyle ':vcs_info:*' stagedstr "+"    # 適当な文字列に変更する
+#zstyle ':vcs_info:*' unstagedstr "-"  # 適当の文字列に変更する
+#zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
+#zstyle ':vcs_info:bzr:*' use-simple true
+
+zstyle ':vcs_info:*' formats '[%b]'
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+
+function _update_vcs_info_msg() {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+add-zsh-hook precmd _update_vcs_info_msg
+
+# 色
+
+# 時刻の色
+local time_color=220
+# パスの色
+local path_color=051
+# ホストの色
+local host_color=202
+# 名前の色
+local name_color=250
+# 名前の色
+local normal_color=084
+# マークの色
+local mark_color=193
+# ブランチの色
+local branch_color=193
+
+#local KAO1="(*'-')/"
+#local KAO2="(*;-;%)<"
+#local KAO1="(´・ω・)/"
+#local KAO2="(´；ω；%)/"
+local KAO1="@='-']"
+local KAO2="@=^-^]"
+
+
+local mark=${KAO1}
+
+# PROMPT="%1(v|%F{036}%1v%f|)"
+
+local time_part="%F{$time_color}--- %D{%Y-%m-%d %H:%M:%S} ---%f"
+local path_part="%1(v|%F{$branch_color}%1v%f|) %F{$path_color}%d%f"
+local host_part="%F{$host_color}`hostname -f`%f"
+local name_part="%F{$name_color}(%n)%f"
+
+local line1="${time_part} ${path_part}"
+local line2="%F{$normal_color}>>> %F{$mark_color}${mark}%f"
+local line2="${line2} %F{$normal_color}>%f ${host_part}"
+local line3="$name_part %F{$normal_color}> %f"
+
+PROMPT="$line1
+$line2
+$line3"
+PROMPT2="->"
+
+RPROMPT=
+# }}}
+
+# 補完機能を強化する {{{
+autoload -U compinit
+compinit
+
+zstyle ':completion:*:default' menu select=2
+
+# 補完関数の表示を強化する
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'$DEFAULT
+
+# マッチ種別を別々に表示
+zstyle ':completion:*' group-name ''
+
+# セパレータを設定する
+zstyle ':completion:*' list-separator '-->'
+zstyle ':completion:*:manuals' separate-sections true
+
+# source ~/.zsh.d/git-flow-completion.git/git-flow-completion.zsh
+
+
+# ファイル補完候補に色を付ける
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# 補完に関するオプション
+# http://voidy21.hatenablog.jp/entry/20090902/1251918174
+setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt mark_dirs             # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
+setopt list_types            # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
+setopt auto_menu             # 補完キー連打で順に補完候補を自動で補完
+setopt auto_param_keys       # カッコの対応などを自動的に補完
+setopt interactive_comments  # コマンドラインでも # 以降をコメントと見なす
+setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+setopt complete_in_word      # 語の途中でもカーソル位置で補完
+setopt always_last_prompt    # カーソル位置は保持したままファイル名一覧を順次その場で表示
+setopt print_eight_bit       # 日本語ファイル名等8ビットを通す
+#setopt extended_glob         # 拡張グロブで補完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
+setopt globdots              # 明確なドットの指定なしで.から始まるファイルをマッチ
+
+# bindkey "^I" menu-complete   # 展開する前に補完候補を出させる(Ctrl-iで補完するようにする)
+
+# }}}
+
+# ディレクリ表示色
+eval $(dircolors ~/.zsh.d/third/dircolors-solarized/dircolors.ansi-universal)
+
+# プロンプト上でのシンタックスハイライト
+source ~/.zsh.d/third/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# vim: set ft=zsh foldmethod=marker :

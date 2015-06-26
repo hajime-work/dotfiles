@@ -1,31 +1,54 @@
+# 
+# .zshrc
 #
-#  Zsh環境ファイル
-#
-
+# ログイン時に一時だけ読み込まれる
+# 
 umask 002 # グループには常に権限を耐える
 
-# パスの設定
-source ~/.zsh.d/config/path.zsh
+# パス関係の処理 {{{
+# 重複したパスを登録しない。
+typeset -U path cdpath fpath manpath
 
-# ヒストリの設定
-source ~/.zsh.d/config/history.zsh
+## sudo用のパス
+typeset -xT SUDO_PATH sudo_path
+typeset -U sudo_path
+sudo_path=({/usr/local,/usr,}/sbin(N-/))
 
-# アプリケーションの設定
-source ~/.zsh.d/config/app.zsh
+## path
+path=(/bin ~/bin(N-/) /usr/local/bin(N-/) ${path})
 
-# エイリアスの設定
-source ~/.zsh.d/config/alias.zsh
+if [ $(id -u) -eq 0 ]; then
+    path=($sudo_path $path)
+fi
+# }}}
 
-# プロンプトの設定
-source ~/.zsh.d/config/prompt.zsh
 
-# 補完の設定
-source ~/.zsh.d/config/completion.zsh
+# アプリケーション {{{
+# ----------------------
+# 基本的にエディターはVIMにする
+# ----------------------
+export EDITOR=vim
+if ! type vim > /dev/null 2>&1; then
+    alias vim=vi
+fi
+
+
+# Global Alias
+alias -g G='| grep'
+alias -g GI='| grep -i'
+
+# alias
+alias vi=vim
+alias virc="vim ~/.vimrc"
+alias vish="vim +VimShell"
+alias vizshrc="vim ~/.zshrc"
+# }}}
+
 
 # Utilの読み込み
 source ~/.zsh.d/config/util.zsh
 
-[ "$TERM" = "xterm" ] && export TERM="xterm-256color"
 
+[ "$TERM" = "xterm" ] && export TERM="xterm-256color"
 
 # vim: ft=sh :
