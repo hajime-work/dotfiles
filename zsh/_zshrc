@@ -1,7 +1,11 @@
 # 
 # .zshrc
+#
+# シェル起動時に読み込まれる
 # 
+
 source ~/.zsh.d/zshrc
+
 
 # ローカルファイルの読み込み
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

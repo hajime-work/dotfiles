@@ -190,7 +190,6 @@ let g:lightline = {
 
 " 文字コード判定順序
 set fileencodings=utf-8,euc-jp,iso-2022-jp,cp932
-
 " }}}
 
 " シンタックス {{{
@@ -420,11 +419,6 @@ nmap <silent> [nora:mode]m :<C-u>call ToggleMouse()<CR>
 " w!!でsudo経由で保存
 cmap w!! w !sudo tee > /dev/null %
 
-" インサートモードでのカーソル移動 {{{
-noremap <silent> <c-f>l <ESC> A
-
-
-" }}}
 
 " }}}
 
