@@ -481,8 +481,9 @@ inoremap <c-w> <c-o><c-w>
 
 " エクスプローラを開く
 "nnoremap <silent> [nora:ext]e :<C-u>VimFilerCreate -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
-nnoremap <silent> [nora:ext]e :<C-u>VimFilerBufferDir -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
-nnoremap <silent> [nora]<C-e> :<C-u>VimFilerBufferDir  -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
+nnoremap <silent> [nora:ext]e :<C-u>VimFilerBufferDir -toggle -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
+nmap <silent> <c-e> [nora:ext]e
+
 
 " タグバーを開く
 nnoremap <silent> [nora:ext]t :<C-u>TagbarToggle<CR>
