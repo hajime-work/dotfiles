@@ -115,7 +115,7 @@ local normal_off_color=249
 #local KAO1="(´・ω・)/"
 #local KAO2="(´；ω；%)/"
 local KAO1="@='-']"
-local KAO2="@=^-^]"
+local KAO2="@=;-;]"
 
 local KAO='%(?!${KAO1}!${KAO2})'
 
@@ -137,7 +137,9 @@ local line2="$line2 %F{$mark_color}${mark}%f"
 local line2="$line2 %F{$normal_off_color}>>%f"
 local line2="$line2 $path_part"
 local line3=""
-local line3="(%n) %F{049}$%f "
+local line3_user="%F{224}[%n]%f%F{049}>%f "
+local line3_admin="%F{001}#%f "
+local line3="%(!,$line3_admin,$line3_user)"
 
 PROMPT="$line1
 $line2
