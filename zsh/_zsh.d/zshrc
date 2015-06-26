@@ -130,13 +130,14 @@ local name_part="%F{$name_color}%n%f"
 
 local line1=""
 local line1="$line1${time_part}"
-local line1="$line1 ${path_part}"
 local line2=""
-local line2="$line2%F{$normal_color}>>>"
+local line2="$line2${host_part}"
+local line2="$line2 %F{$normal_color}>>"
 local line2="$line2 %F{$mark_color}${mark}%f"
-local line2="$line2 %F{$normal_off_color}>>>%f ${host_part} [${name_part}]"
+local line2="$line2 %F{$normal_off_color}>>%f"
+local line2="$line2 $path_part"
 local line3=""
-local line3="%n@%m %F{049}$%f "
+local line3="(%n) %F{049}$%f "
 
 PROMPT="$line1
 $line2
