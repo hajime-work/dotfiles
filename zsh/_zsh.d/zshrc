@@ -136,7 +136,7 @@ local line2="$line2%F{$normal_color}>>>"
 local line2="$line2 %F{$mark_color}${mark}%f"
 local line2="$line2 %F{$normal_off_color}>>>%f ${host_part} [${name_part}]"
 local line3=""
-local line3="%F{$input_color}>%f "
+local line3="%n@%m %F{049}$%f "
 
 PROMPT="$line1
 $line2
