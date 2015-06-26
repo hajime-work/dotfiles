@@ -215,10 +215,6 @@ NeoBundleLazy 'thinca/vim-quickrun', {
             \  }
             \}
 
-NeoBundleLazy 'Shougo/vimfiler.vim', {
-\   'autoload' : { 'commands' : [ 'VimFiler', 'VimFilerTab', 'VimFilerExplorer', 'VimFilerBufferDir', 'VimFilerCreate' ] },
-\   'depends': [ 'Shougo/unite.vim' ],
-\ }
 
 NeoBundleLazy 'Shougo/unite.vim' , {
 \   'autoload' : { 'commands' : [ 'Unite' ] }
@@ -321,6 +317,9 @@ NeoBundleLazy 'glidenote/memolist.vim', {"autoload": {"commands": ["MemoList"]}}
 " }}}
 
 " 設定 {{{
+
+NeoBundle 'Shougo/vimfiler.vim'
+let g:vimfiler_as_default_explorer = 1
 
 " ディレクトリ単位でのvimrcを有効にする
 NeoBundle 'thinca/vim-localrc'
