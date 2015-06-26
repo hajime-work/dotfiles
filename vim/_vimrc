@@ -23,27 +23,27 @@ call neobundle#begin(expand('~/.dotfiles/vim/bundle/'))
 " }}}
 
 " Auto Command {{{
-function! s:RestoreCursorPostion()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-    endif
-endfunction
+" function! s:RestoreCursorPostion()
+"     if line("'\"") <= line("$")
+"         normal! g`"
+"         return 1
+"     endif
+" endfunction
 
 
 augroup NoraAutoCmd
   autocmd!
-  autocmd BufWinEnter * call s:RestoreCursorPostion()
+"  autocmd BufWinEnter * call s:RestoreCursorPostion()
 augroup END
 
 " }}}
 
 "プレフィックスの設定 {{{
-nmap s <Nop>
+nnoremap s <Nop>
 nnoremap [nora] <NOP>
 nmap s <ESC>[nora]
-nmap <C-f> <ESC>[nora]
-imap <c-f> <ESC>[nora]
+nmap <C-f> [nora]
+imap <silent> <c-f> <ESC>[nora]
 
 nnoremap [nora:mode] <NOP>
 nmap m <ESC>[nora:mode]
@@ -422,7 +422,6 @@ cmap w!! w !sudo tee > /dev/null %
 " }}}
 
 " ウインドウ操作系 {{{
-
 NeoBundle 'Shougo/neomru.vim'
 
 nmap <silent> [nora]j <C-w>j
@@ -441,11 +440,11 @@ nmap <silent> <S-l> <C-w>>
 nmap <silent> <S-h> <C-w><
 nmap <silent> <S-k> <C-w>+
 "nmap <silent> <S-j> <C-w>
-nnoremap [nora]= <C-w>=
-nnoremap [nora]> <C-w>>
-nnoremap [nora]< <C-w><
-nnoremap [nora]+ <C-w>+
-nnoremap [nora]- <C-w>-
+nmap [nora]= <C-w>=
+nmap [nora]> <C-w>>
+nmap [nora]< <C-w><
+nmap [nora]+ <C-w>+
+nmap [nora]- <C-w>-
 let s:bundle = neobundle#get("vim-submode")
 function! s:bundle.hooks.on_source(bundle)
     call submode#enter_with('windowi', 'n', '', 's>', '<C-w>>')
@@ -467,12 +466,22 @@ nmap [nora]ww <C-w>=
 nmap T :tabnew<CR>
 nmap <silent> tn :tabnext<CR>
 nmap <silent> tp :tabprevius<CR>
-nmap <silent> te :tabedit<space>
+nmap <silent> te :tabedit<space>a
+
 nnoremap <silent> [nora]T :<C-u>Unite tab<CR>
+
+" タブ移動のショートカット
+nnoremap <c-g> <nop>
+nnoremap <c-g> gt
+
+" インサートモード中でも c-wが使えるようにする 
+inoremap <c-w> <c-o><c-w>
+
 "}}}
 
 " エクスプローラを開く
-nnoremap <silent> [nora:ext]e :<C-u>VimFilerCreate -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
+"nnoremap <silent> [nora:ext]e :<C-u>VimFilerCreate -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
+nnoremap <silent> [nora:ext]e :<C-u>VimFilerBufferDir -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
 nnoremap <silent> [nora]<C-e> :<C-u>VimFilerBufferDir  -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
 
 " タグバーを開く
@@ -480,8 +489,6 @@ nnoremap <silent> [nora:ext]t :<C-u>TagbarToggle<CR>
 
 " gundo
 nnoremap <silent> [nora:ext]g :<C-u>GundoToggle<CR>
-
-
 
 
 " }}}
