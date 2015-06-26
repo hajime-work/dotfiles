@@ -549,6 +549,7 @@ nnoremap [nora]m :<C-u>CtrlPMRUFiles<CR>
 " HTML操作 {{{
 
 autocmd NoraAutoCmd FileType html call s:html_setting()
+autocmd NoraAutoCmd FileType twig call s:html_setting()
 function! s:html_setting()
     nmap [nora]et <Plug>(endtagcomment)
     nmap [nora]; <c-y>,
