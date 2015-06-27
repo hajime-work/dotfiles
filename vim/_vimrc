@@ -40,13 +40,13 @@ augroup END
 
 "プレフィックスの設定 {{{
 nnoremap s <Nop>
-nnoremap [nora] <NOP>
+noremap [nora] <NOP>
 nmap s <ESC>[nora]
-nmap <C-f> [nora]
-imap <silent> <c-f> <ESC>[nora]
+map <c-f> [nora]
+imap <c-f> <esc>[nora]
 
 nnoremap [nora:mode] <NOP>
-nmap m <ESC>[nora:mode]
+" markとかぶる。。。
 
 nnoremap [nora:vs] <NOP>
 nmap [nora]s <ESC>[nora:vs]
@@ -411,8 +411,8 @@ endfunction
 " }}}
 
 " モードトグル {{{
-nmap <silent> [nora:mode]p :<C-u>set paste!<CR>
-nmap <silent> [nora:mode]m :<C-u>call ToggleMouse()<CR>
+nmap <silent> [nora]P :<C-u>set paste!<CR>
+nmap <silent> [nora]M :<C-u>call ToggleMouse()<CR>
 " }}}
 
 " w!!でsudo経由で保存
@@ -473,6 +473,8 @@ nnoremap <silent> [nora]T :<C-u>Unite tab<CR>
 " タブ移動のショートカット
 nnoremap <c-g> <nop>
 nnoremap <c-g> gt
+imap <buffer> <c-g> <c-o><c-g>
+
 
 " インサートモード中でも c-wが使えるようにする 
 inoremap <c-w> <c-o><c-w>
@@ -830,6 +832,27 @@ nnoremap [nora:vs]i  :<C-u>VimShellInteractive<space>
 
 " }}}
 
+" マーク {{{
+
+" mark auto reg
+" http://saihoooooooo.hatenablog.com/entry/2013/04/30/001908
+if !exists('g:markrement_char')
+    let g:markrement_char = [
+    \     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    \     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    \ ]
+endif
+nnoremap <silent>m :<C-u>call <SID>AutoMarkrement()<CR>
+function! s:AutoMarkrement()
+    if !exists('b:markrement_pos')
+        let b:markrement_pos = 0
+    else
+        let b:markrement_pos = (b:markrement_pos + 1) % len(g:markrement_char)
+    endif
+    execute 'mark' g:markrement_char[b:markrement_pos]
+    echo 'marked' g:markrement_char[b:markrement_pos]
+endfunction
+" }}}
 
 " }}}
 
