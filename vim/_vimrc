@@ -120,6 +120,10 @@ set number
 
 set scrolloff=16
 
+" バッファの挙動
+
+set hidden
+
 " }}}
 
 " 折りたたみ {{{
