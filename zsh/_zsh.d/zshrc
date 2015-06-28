@@ -123,9 +123,9 @@ local mark=${KAO}
 
 # PROMPT="%1(v|%F{036}%1v%f|)"
 
-local time_part="%F{$normal_off_color}--- %f%F{$time_color}%D{%Y-%m-%d %H:%M:%S}%f%F{$normal_off_color} ---%f"
+local time_part="%F{$normal_off_color}%B---%b %f%F{$time_color}%D{%Y-%m-%d %H:%M:%S}%f%F{$normal_off_color} %B---%b%f"
 local path_part="%1(v|%F{$branch_color}%1v-%f|)%F{$path_color}%d%f"
-local host_part="%F{$host_color}`hostname -f`%f"
+local host_part="%F{$host_color}%B`hostname -f`%b%f"
 local name_part="%F{$name_color}%n%f"
 
 local line1=""
@@ -137,7 +137,7 @@ local line2="$line2 %F{$mark_color}${mark}%f"
 local line2="$line2 %F{$normal_off_color}>>%f"
 local line2="$line2 $path_part"
 local line3=""
-local line3_user="%F{224}[%n]%f%F{049}>%f "
+local line3_user="%F{049}%B= %b%f%F{224}%n%f%F{049}%B =>%b%f "
 local line3_admin="%F{009}#%f "
 local line3="%(!,$line3_admin,$line3_user)"
 
