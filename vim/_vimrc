@@ -124,6 +124,14 @@ set scrolloff=16
 
 set hidden
 
+" モードライン
+set modeline
+set modelines=5
+
+" 分割を開く方向
+set splitright
+set splitbelow
+
 " }}}
 
 " 折りたたみ {{{
@@ -263,9 +271,6 @@ NeoBundleLazy 'plasticboy/vim-markdown', {"autoload": {"filetypes": ["markdown"]
 " インデントをわかりやすくする
 NeoBundleLazy  'nathanaelkane/vim-indent-guides'
 
-" VimTemplate
-NeoBundleLazy "thinca/vim-template"
-
 " ctagsを自動化
 NeoBundleLazy 'soramugi/auto-ctags.vim'
 
@@ -322,6 +327,12 @@ NeoBundleLazy 'glidenote/memolist.vim', {"autoload": {"commands": ["MemoList"]}}
 " }}}
 
 " 設定 {{{
+" VimTemplate
+NeoBundle "thinca/vim-template"
+let g:template_basedir      = "~/.vim.d/template/"
+let g:template_free_pattern = 'template'
+let g:template_files        = "**"
+
 NeoBundle 'Conque-Shell'
 
 NeoBundle 'Shougo/vimfiler.vim'
@@ -362,10 +373,10 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 
 " Undoをファイルを閉じた後も有効にする
-if has('persistent_undo')
-    set undofile
-    set undodir=$HOME/.vim.tmp
-endif 
+"if has('persistent_undo')
+"    set undofile
+"    set undodir=$HOME/.vim.tmp
+"endif 
 
 " キーバインド {{{
 
@@ -932,6 +943,21 @@ let g:quickrun_config = {
 
 nnoremap <silent> [nora:ext]r : <C-u>QuickRun<CR>
 
+augroup NoraAutoCmd
+    autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
+augroup END
+ 
+let g:quickrun_config = {}
+let g:quickrun_config['_'] = {}
+let g:quickrun_config['_']['runner'] = 'vimproc'
+let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
+
+let g:quickrun_config['php.phpunit'] = {}
+let g:quickrun_config['php.phpunit']['outputter/buffer/split'] = 'vertical 50'
+let g:quickrun_config['php.phpunit']['command'] = 'phpunit'
+let g:quickrun_config['php.phpunit']['cmdopt'] = ''
+let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
+
 " }}}
 
 " デバッグ {{{
@@ -950,6 +976,7 @@ let g:vdebug_keymap = {
 \    "eval_under_cursor" : "<F12>",
 \    "eval_visual" : "<Leader>e",
 \}
+
 " }}}
 
 " ネオバンドル用の終了 {{{
