@@ -315,7 +315,8 @@ NeoBundleLazy 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim' }
 NeoBundleLazy 'Lokaltog/powerline-fontpatcher'
 
 " HTML閉じタグ後のコメントを,tで入力
-NeoBundleLazy 'haya14busa/endtagcomment.vim', {"autoload": {"filetype": ["html"]}}
+"NeoBundleLazy 'haya14busa/endtagcomment.vim', {"autoload": {"filetype": ["html"]}}
+NeoBundle 'haya14busa/endtagcomment.vim'
 
 " プロジェクト管理
 " NeoBundle 'project.vim'
