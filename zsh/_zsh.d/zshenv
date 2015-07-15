@@ -15,6 +15,7 @@ typeset -U sudo_path
 sudo_path=({/usr/local,/usr,}/sbin(N-/))
 
 ## path
+path=
 path=(/bin ~/bin(N-/) /usr/local/bin(N-/) ${path})
 
 if [ $(id -u) -eq 0 ]; then

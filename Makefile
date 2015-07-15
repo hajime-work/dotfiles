@@ -1,69 +1,60 @@
 .PHONY: git zsh vim tmux conky
 
-prepare:
+install:
+	git submodule init
+	git submodule update
 	make git
 	make zsh
 	make vim
 	make tmux
 
+
 #
 # GIT系の設定
 #
 git:
-	make $(HOME)/.gitconfig
-	make $(HOME)/.gitconfig.local
-$(HOME)/.gitconfig:
-	ln -f ./git/_gitconfig $(HOME)/.gitconfig
-$(HOME)/.gitconfig.local:
-	cp -v ./git/_gitconfig.local $(HOME)/.gitconfig.local
+	# ファイルがある、しかしリンクじゃない場合は.localにコピー
+	if [ -s $(HOME)/.gitconfig ]; then if [ ! -L $(HOME)/.gitconfig ]; then cat $(HOME)/.gitconfig >> $(HOME)/.gitconfig.local ; fi;  fi;
+	# ローカルがなければ
+	if [ -s $(HOME)/.gitconfig.local ]; then touch $(HOME)/.gitconfig.local; fi;
+	# リンクを貼る
+	ln -sf .dotfiles/git/_gitconfig $(HOME)/.gitconfig
 
 #
 # ZSH系の設定
 #
 zsh: 
-	make $(HOME)/.zsh.d/sential
-	make $(HOME)/.zshenv
-	make $(HOME)/.zshrc
-$(HOME)/.zsh.d/sential:
+	# ファイルがある、しかしリンクじゃない場合は.localにコピー
+	if [ -s $(HOME)/.zshrc ]; then if [ ! -L $(HOME)/.zshrc ]; then cat $(HOME)/.zshrc >> $(HOME)/.zshrc.local ; fi;  fi;
+	if [ -s $(HOME)/.zshenv ]; then if [ ! -L $(HOME)/.zshenv ]; then cat $(HOME)/.zshenv >> $(HOME)/.zshenv.local ; fi;  fi;
+	# ローカルがなければ
+	touch $(HOME)/.zshrc.local
+	touch $(HOME)/.zshenv.local
+	# リンクを貼る
 	ln -sf .dotfiles/zsh/_zsh.d $(HOME)/.zsh.d
-	touch $@
-$(HOME)/.zsh%:
-	ln -f ./zsh/$(subst .,_,$(@F)) $@
+	ln -sf .dotfiles/zsh/_zshrc  $(HOME)/.zshrc
+	ln -sf .dotfiles/zsh/_zshenv  $(HOME)/.zshenv
 
 #
 # VIM系の設定
 #
 vim:
-	make $(HOME)/.vim.d/sential
-	make $(HOME)/.vimrc
-	make $(HOME)/.vimrc.local
-	make $(HOME)/.vim.tmp/sential
-
-$(HOME)/.vim.tmp/sential:
+	# ファイルがある、しかしリンクじゃない場合は.localにコピー
+	if [ -s $(HOME)/.vimrc ]; then if [ ! -L $(HOME)/.vimrc ]; then cat $(HOME)/.vimrc >> $(HOME)/.vimrc.local ; fi;  fi;
+	touch $(HOME)/.vimrc.local
 	-mkdir $(HOME)/.vim.tmp
-	touch $@
-
-$(HOME)/.vim.d/sential:
 	ln -sf .dotfiles/vim/_vim.d $(HOME)/.vim.d
-	touch $@
-$(HOME)/.vimrc: ./vim/_vimrc
-	ln -f ./vim/_vimrc $(HOME)/.vimrc
-$(HOME)/.vimrc.local:
-	touch $@
+	ln -sf .dotfiles/vim/_vimrc $(HOME)/.vimrc
+
 	
 #
 # TMUX系の設定
 #
 tmux:
-	make $(HOME)/.tmux.d/sential
-	make $(HOME)/.tmux.conf
-
-$(HOME)/.tmux.d/sential:
+	# ファイルがある、しかしリンクじゃない場合は.localにコピー
+	if [ -s $(HOME)/.tmux.conf ]; then if [ ! -L $(HOME)/.tmux.conf ]; then cat $(HOME)/.tmux.conf >> $(HOME)/.tmux.conf.local ; fi;  fi;
 	ln -sf .dotfiles/tmux/_tmux.d $(HOME)/.tmux.d
-	touch $@
-
-$(HOME)/.tmux.conf:
-	ln -f ./tmux/_tmux.conf $(HOME)/.tmux.conf
+	ln -sf .dotfiles/tmux/_tmux.conf $(HOME)/.tmux.conf
 #
 # Conky
 #

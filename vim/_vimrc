@@ -17,7 +17,7 @@ if has('vim_starting')
   set runtimepath+=~/.dotfiles/vim/third/neobundle.vim/
 endif
 
-call neobundle#begin(expand('~/.dotfiles/vim/bundle/'))
+call neobundle#begin(expand('~/vim.d/bundle/'))
 
 
 " }}}
@@ -716,7 +716,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " \ "\<Plug>(neosnippet_expand_or_jump)"
 " \: "\<TAB>"
 
-let g:neosnippet#snippets_directory='~/.dotfiles/vim/snippets/'
+let g:neosnippet#snippets_directory='~/vim.d/snippets/'
 nnoremap [snipet] <nop>
 nmap [nora:mode]s [snipet]
 nnoremap <silent> [snipet]e :<c-u>NeoSnippetEdit<cr>
