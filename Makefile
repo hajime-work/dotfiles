@@ -31,7 +31,7 @@ zsh:
 	touch $(HOME)/.zshrc.local
 	touch $(HOME)/.zshenv.local
 	# リンクを貼る
-	if [ -d .dotfiles/zsh/_zsh.d ]; then ln -sf .dotfiles/zsh/_zsh.d $(HOME)/.zsh.d; fi;
+	if [ ! -d $(HOME)/.zsh.d ]; then ln -sf .dotfiles/zsh/_zsh.d $(HOME)/.zsh.d; fi;
 	ln -sf .dotfiles/zsh/_zshrc  $(HOME)/.zshrc
 	ln -sf .dotfiles/zsh/_zshenv  $(HOME)/.zshenv
 
@@ -43,7 +43,7 @@ vim:
 	if [ -s $(HOME)/.vimrc ]; then if [ ! -L $(HOME)/.vimrc ]; then cat $(HOME)/.vimrc >> $(HOME)/.vimrc.local ; fi;  fi;
 	touch $(HOME)/.vimrc.local
 	-mkdir $(HOME)/.vim.tmp
-	if [ -d .dotfiles/vim/_vim.d ]; then ln -sf .dotfiles/vim/_vim.d $(HOME)/.vim.d; fi;
+	if [ ! -d $(HOME)/.vim.d ]; then ln -sf .dotfiles/vim/_vim.d $(HOME)/.vim.d; fi;
 	ln -sf .dotfiles/vim/_vimrc $(HOME)/.vimrc
 
 	
@@ -53,7 +53,7 @@ vim:
 tmux:
 	# ファイルがある、しかしリンクじゃない場合は.localにコピー
 	if [ -s $(HOME)/.tmux.conf ]; then if [ ! -L $(HOME)/.tmux.conf ]; then cat $(HOME)/.tmux.conf >> $(HOME)/.tmux.conf.local ; fi;  fi;
-	if [ -d .dotfiles/tmux/_tmux.d ]; then ln -sf .dotfiles/tmux/_tmux.d $(HOME)/.tmux.d; fi;
+	if [ ! -d $(HOME)/.tmux.d ]; then ln -sf .dotfiles/tmux/_tmux.d $(HOME)/.tmux.d; fi;
 	ln -sf .dotfiles/tmux/_tmux.conf $(HOME)/.tmux.conf
 #
 # Conky
