@@ -945,6 +945,7 @@ nnoremap <silent> [nora:ext]r : <C-u>QuickRun<CR>
 
 augroup NoraAutoCmd
     autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
+    autocmd BufWinEnter,BufNewFile *.sass set et ts=2 sts=2 sw=2
 augroup END
  
 let g:quickrun_config = {}
@@ -957,6 +958,13 @@ let g:quickrun_config['php.phpunit']['outputter/buffer/split'] = 'vertical 50'
 let g:quickrun_config['php.phpunit']['command'] = 'phpunit'
 let g:quickrun_config['php.phpunit']['cmdopt'] = ''
 let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
+
+" SASS
+let g:quickrun_config['sass'] = {}
+let g:quickrun_config['sass']['outputter/buffer/split'] = 'vertical 50'
+let g:quickrun_config['sass']['command'] = 'sass'
+let g:quickrun_config['sass']['cmdopt'] = '--compass'
+let g:quickrun_config['sass']['exec'] = '%c %o %s'
 
 " }}}
 
