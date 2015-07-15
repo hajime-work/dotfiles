@@ -8,32 +8,6 @@ git clone <REPO> .dotfiles
 cd .dotfiles
 
 make 
-
-# もしくは必要な子だけ
-make zsh
-make git
-make vim
-make tmux
-
-# conkyを使いたければ
-make conky
-```
-
-リポジトリのカスタマイズについて
----------------------------------
-
-こんな事ができます。
-
-```sh
-git clone avap-git:NoraWorker/dotfiles .dotfiles
-cd .dotfiles
-make
-git checkout -b user/名前
-# ファイルを好きにいじる
-git push orign user/名前
-
-# 別のサーバで
-git clone -b user/名前 avap-git:NoraWorker/dotfiles .dotfiles
 ```
 
 VIM
@@ -68,9 +42,3 @@ TMUX
 
 ~/.tmux.conf
 ~/.tmux.d
-
-CONKY
------
-
-きょうみがあれば。。。。
-
