@@ -203,4 +203,5 @@ eval $(dircolors ~/.zsh.d/third/dircolors-solarized/dircolors.ansi-universal)
 # プロンプト上でのシンタックスハイライト
 source ~/.zsh.d/third/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+umask 002
 # vim: set ft=zsh foldmethod=marker :
