@@ -17,7 +17,7 @@ if has('vim_starting')
   set runtimepath+=~/.dotfiles/vim/third/neobundle.vim/
 endif
 
-call neobundle#begin(expand('~/vim.d/bundle/'))
+call neobundle#begin(expand('~/.vim.d/bundle/'))
 
 
 " }}}

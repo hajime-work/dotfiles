@@ -16,11 +16,11 @@ sudo_path=({/usr/local,/usr,}/sbin(N-/))
 
 ## path
 path=
-path=(/bin ~/bin(N-/) /usr/local/bin(N-/) ${path})
+path=(/bin ~/bin(N-/) /usr/local/bin(N-/) /usr/bin ${sudo_path}  ${path})
 
-if [ $(id -u) -eq 0 ]; then
-    path=($sudo_path $path)
-fi
+#if [ $(id -u) -eq 0 ]; then
+#    path=($sudo_path $path)
+#fi
 # }}}
 
 
