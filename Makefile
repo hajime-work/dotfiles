@@ -19,6 +19,7 @@ git:
 	if [ -s $(HOME)/.gitconfig.local ]; then touch $(HOME)/.gitconfig.local; fi;
 	# リンクを貼る
 	ln -sf .dotfiles/git/_gitconfig $(HOME)/.gitconfig
+	touch $(HOME)/.gitconfig.local
 
 #
 # ZSH系の設定
