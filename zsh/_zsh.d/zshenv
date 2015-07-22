@@ -5,6 +5,8 @@
 # 
 umask 002 # グループには常に権限を耐える
 
+export LAGN=ja_JP.UTF-8
+
 # パス関係の処理 {{{
 # 重複したパスを登録しない。
 typeset -U path cdpath fpath manpath

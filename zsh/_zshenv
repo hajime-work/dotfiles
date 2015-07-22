@@ -1,7 +1,6 @@
 #
 # zshenv
 #
-LANG=ja_JP.UTF-8
 source ~/.zsh.d/zshenv
 
 # ローカルファイルの読み込み
