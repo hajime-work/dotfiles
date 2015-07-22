@@ -125,7 +125,8 @@ local mark=${KAO}
 
 local time_part="%F{$normal_off_color}%B---%b %f%F{$time_color}%D{%Y-%m-%d %H:%M:%S}%f%F{$normal_off_color} %B---%b%f"
 local path_part="%1(v|%F{$branch_color}%1v-%f|)%F{$path_color}%d%f"
-local host_part="%F{$host_color}%B`hostname -f`%b%f"
+local host_part="%F{$host_color}%B`hostname`%b%f"
+#local host_part="%F{$host_color}%B%m%b%f"
 local name_part="%F{$name_color}%n%f"
 
 local line1=""

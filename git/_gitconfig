@@ -9,3 +9,6 @@
     co = checkout
 [include] 
     path = ~/.gitconfig.local
+[user]
+	email = hajime.matsumoto@avap.co.jp
+	name = hajime matsumoto
