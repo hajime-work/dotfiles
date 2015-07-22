@@ -211,6 +211,8 @@ syntax enable
 " NeoBundle {{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'Shougo/neomru.vim'
+
 " Vim Procのインストール
 NeoBundle 'Shougo/vimproc',{'build': 
 \ {
@@ -244,7 +246,8 @@ NeoBundleLazy 'tacroe/unite-mark'
 NeoBundleLazy 'osyo-manga/unite-fold'
 " NeoBundleLazy 'taka84u9/unite-git'
 " NeoBundleLazy 'thinca/vim-unite-history'
-" NeoBundleLazy 'kannokanno/unite-dwm'
+" NeoBundle 'kannokanno/unite-dwm'
+" NeoBundle 'spolu/dwm.vim'
 NeoBundleLazy 'tsukkee/unite-tag'
 
 
@@ -450,7 +453,6 @@ cmap w!! w !sudo tee > /dev/null %
 " }}}
 
 " ウインドウ操作系 {{{
-NeoBundle 'Shougo/neomru.vim'
 
 nmap <silent> [nora]j <C-w>j
 nmap <silent> [nora]k <C-w>k
@@ -484,6 +486,11 @@ function! s:bundle.hooks.on_source(bundle)
     call submode#map('windowi', 'n', '', '+', '<C-w>+')
     call submode#map('windowi', 'n', '', '-', '<C-w>-')
 endfunction
+
+nmap <C-j> <C-w>w
+nmap <C-k> <C-w>W
+nmap <C-h> <C-w><
+nmap <C-l> <C-w>>
 
 " 分割の移動
 nmap [nora]wo <C-w>\|<C-w>_
@@ -525,6 +532,7 @@ nnoremap <silent> [nora:ext]g :<C-u>GundoToggle<CR>
 " }}}
 
 " Unite系 {{{
+nnoremap <C-c> <nop>
 nnoremap <silent> [nora]b :<C-u>Unite buffer bookmark<CR>
 nnoremap <silent> [nora]o :<C-u>Unite fold outline<CR>
 nnoremap <silent> [nora]<C-h> :<C-u>Unite buffer file_mru<CR>

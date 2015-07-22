@@ -28,9 +28,9 @@ bindkey -e # key binding as emacs style
 # LSに色をつける
 # ----------------------
 export LSCOLORS=exfxcxdxbxegedabagacad
-alias ls="ls --color"
+alias ls="ls"
 alias ll="ls -l"
-alias la="ls -a"
+alias la="ls -la"
 
 # Color Test
 function color256() {
