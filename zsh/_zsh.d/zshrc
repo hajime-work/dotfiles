@@ -204,5 +204,28 @@ eval $(dircolors ~/.zsh.d/third/dircolors-solarized/dircolors.ansi-universal)
 # プロンプト上でのシンタックスハイライト
 source ~/.zsh.d/third/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-umask 002
+
+# TmuxとSSH-AGENTの親和性問題の対策
+# 
+# アタッチ後にAlt-sを押すと最新のssh-agentをロードする
+#
+# TMUXが立ち上がったら現在有効になっているSSH_AUTH_SOCKを
+# 更新するハンドラを仕込む
+[ -n "${TMUX}" ] && {
+    function update_ssh_auth_sock() {
+        local KEY=$(tmux show-environment | grep "^SSH_AUTH_SOCK" | cut -d"=" -f2)
+        [ -n "$KEY" ] && {
+            export SSH_AUTH_SOCK=$KEY
+            echo 
+            ssh-add -l
+            echo 
+        }
+    }
+    # モジュール化
+    zle -N update_ssh_auth_sock
+
+    # Alt-s で実行させる
+    zle -N update_ssh_auth_sock
+    bindkey "^[s" update_ssh_auth_sock
+}
 # vim: set ft=zsh foldmethod=marker :
