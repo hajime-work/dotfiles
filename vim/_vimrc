@@ -6,7 +6,7 @@
 " @Update 2015.06.22
 " ----------------------------------------
 
-nnoremap rv :<C-u>source ~/.vimrc<CR>
+nnoremap VV :<C-u>source ~/.vimrc<CR>
 
 " NeoBundle用のスタートアップ {{{
 " ----------------------------------------
@@ -321,9 +321,10 @@ NeoBundleLazy 'Lokaltog/powerline-fontpatcher'
 "NeoBundleLazy 'haya14busa/endtagcomment.vim', {"autoload": {"filetype": ["html"]}}
 NeoBundle 'haya14busa/endtagcomment.vim'
 
-" プロジェクト管理
-" NeoBundle 'project.vim'
-NeoBundleLazy 'kien/ctrlp.vim', {"autoload": {"commands": ["CtrlP", "CtrlPMRUFiles"]}}
+" ファイラ
+NeoBundleLazy 'kien/ctrlp.vim', {"autoload": {"commands": ["CtrlP", "CtrlPMRUFiles", "CtrlPMixed"]}}
+
+NeoBundle 'mattn/ctrlp-filer'
 
 " メモ
 NeoBundleLazy 'glidenote/memolist.vim', {"autoload": {"commands": ["MemoList"]}}
@@ -487,10 +488,10 @@ function! s:bundle.hooks.on_source(bundle)
     call submode#map('windowi', 'n', '', '-', '<C-w>-')
 endfunction
 
-nmap <C-j> <C-w>w
-nmap <C-k> <C-w>W
-nmap <C-h> <C-w><
-nmap <C-l> <C-w>>
+"nmap <C-j> <C-w>w
+"nmap <C-k> <C-w>W
+"nmap <C-h> <C-w><
+"nmap <C-l> <C-w>>
 
 " 分割の移動
 nmap [nora]wo <C-w>\|<C-w>_
@@ -517,7 +518,7 @@ inoremap <c-w> <c-o><c-w>
 "}}}
 
 " エクスプローラを開く
-"nnoremap <silent> [nora:ext]e :<C-u>VimFilerCreate -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
+nnoremap <silent> [nora:ext]E :<C-u>VimFilerCreate -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
 nnoremap <silent> [nora:ext]e :<C-u>VimFilerBufferDir -toggle -explorer -parent -split -simple -winwidth=35 -no-quit<CR>
 nmap <silent> <c-e> [nora:ext]e
 
@@ -583,6 +584,9 @@ function! s:bundle.hooks.on_source(bundle)
     let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18,results:50' " 検索ウィンドウの設定
 endfunction
 nnoremap [nora]m :<C-u>CtrlPMRUFiles<CR> 
+nnoremap [nora]p :<C-u>CtrlPMixed<CR> 
+
+
 " }}}
 
 " HTML操作 {{{
