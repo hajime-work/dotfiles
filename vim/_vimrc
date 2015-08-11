@@ -54,6 +54,9 @@ nmap [nora]s <ESC>[nora:vs]
 nnoremap [nora:ext] <Nop>
 nmap <space> <ESC>[nora:ext]
 
+nnoremap [unite] <Nop>
+nmap [nora]u <ESC>[unite]
+
 nnoremap [search] <nop>
 nmap [nora]g <esc>[search]
 " }}}
@@ -533,7 +536,7 @@ nnoremap <silent> [nora:ext]g :<C-u>GundoToggle<CR>
 " }}}
 
 " Unite系 {{{
-nnoremap <C-c> <nop>
+" nnoremap <C-c> <nop>
 nnoremap <silent> [nora]b :<C-u>Unite buffer bookmark<CR>
 nnoremap <silent> [nora]o :<C-u>Unite fold outline<CR>
 nnoremap <silent> [nora]<C-h> :<C-u>Unite buffer file_mru<CR>
@@ -544,6 +547,10 @@ nnoremap <silent> [nora]q :<C-u>Unite qfixhowm qfixhowm/new <CR>
 nnoremap <silent> [nora]<C-q> :<C-u>Unite qfixhowm qfixhowm/new <CR>
 nnoremap <silent> [nora]<C-c> :<C-u>UniteWithBufferDir file file/new directory/new<CR>
 nnoremap <silent> [nora]y :<C-u>Unite history/yank<CR>
+
+
+nnoremap <silent> [unite]f :<C-u>Unite file_rec<CR>
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 
 let s:bundle = neobundle#get("unite.vim")
 function! s:bundle.hooks.on_source(bundle)
