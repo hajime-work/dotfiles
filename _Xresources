@@ -1,0 +1,12 @@
+! Xresources file
+
+urxvt.scrollBar: false
+urxvt.font: xft:Ricty:Bold:size=10:antialias=true
+urxvt.depth: 32
+urxvt.foreground: rgba:ffff/ffff/ffff/ffff
+urxvt.background: rgba:0000/0000/0000/cccc
+
+!urxvt.iso14755: false
+!urxvt.perl-ext-common: clipboard-osc
+!urxvt.keysym.Shift-Control-C: perl:clipboard:copy
+!urxvt.keysym.Shift-Control-V: perl:clipboard:paste
