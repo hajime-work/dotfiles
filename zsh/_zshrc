@@ -6,6 +6,11 @@
 
 source ~/.zsh.d/zshrc
 
+# LSの色付け
+alias ls='ls --color'
+alias ll='ls --color -l'
+alias la='ls --color -la'
+
 
 # ローカルファイルの読み込み
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
